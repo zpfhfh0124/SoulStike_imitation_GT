@@ -3,31 +3,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraFollow : MonoBehaviour
+namespace GT
 {
-    [SerializeField] private Transform _targetTransform;
-    private Vector3 _offsetPos;
-    private Vector3 _offsetRotate;
-    
-    void Start()
+    public class CameraFollow : MonoBehaviour
     {
-        _SetQuaterViewOffset();
-    }
+        [SerializeField] private Transform _targetTransform;
+        private Vector3 _offsetPos;
+        private Vector3 _offsetRotate;
 
-    private void Update()
-    {
-        _UpdateCamTransform();
-    }
+        void Start()
+        {
+            _SetQuaterViewOffset();
+        }
 
-    void _SetQuaterViewOffset()
-    {
-        _offsetPos = new Vector3(0, 10, -5);
-        _offsetRotate = new Vector3(60, 0, 0);
-    }
+        private void Update()
+        {
+            _UpdateCamTransform();
+        }
 
-    void _UpdateCamTransform()
-    {
-        transform.position = _targetTransform.position + _offsetPos;
-        transform.rotation = Quaternion.Euler(_offsetRotate);
+        void _SetQuaterViewOffset()
+        {
+            _offsetPos = new Vector3(0, 10, -5);
+            _offsetRotate = new Vector3(60, 0, 0);
+        }
+
+        void _UpdateCamTransform()
+        {
+            transform.position = _targetTransform.position + _offsetPos;
+            transform.rotation = Quaternion.Euler(_offsetRotate);
+        }
     }
 }
