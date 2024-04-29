@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 73decae5d7f35bd47b126e8576797bb7
+  productGUID: a6a0119cc939ede49a1c6fc5364ec859
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -155,8 +155,7 @@ PlayerSettings:
   resetResolutionOnWindowResize: 0
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
-  applicationIdentifier:
-    Standalone: com.DefaultCompany.SoulStrike-GT
+  applicationIdentifier: {}
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -937,7 +936,7 @@ PlayerSettings:
   cloudProjectId: 36512011-67e1-403e-943b-67f870d1b376
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: SoulStrike_GT
+  projectName: Platformer3DClient
   organizationId: zpfhfh0124_unity
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1

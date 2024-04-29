@@ -20,7 +20,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/3DGamekit/Scenes/UI/Loading.unity
     guid: ebc4647ff02971c4ba1b207af066be4d
-  - enabled: 1
-    path: Assets/Scenes/ExScene.unity
-    guid: dded4690888bcd84e8941bfa8f01eaeb
   m_configObjects: {}
