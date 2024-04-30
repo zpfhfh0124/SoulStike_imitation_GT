@@ -9,7 +9,8 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
-/Assets/3DGamekit
+/Assets/3DGamekit/
+/Assets/Hovl Studio/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
