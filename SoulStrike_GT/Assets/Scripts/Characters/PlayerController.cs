@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GT
@@ -19,14 +20,21 @@ namespace GT
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
-        public float _speed = 0;
+        private const float SPEED_BASE = 15;
         private float _hAxis;
         private float _vAxis;
         private Vector3 _moveVec;
-        
+
+        [Header("Joystick")] 
+        public VariableJoystick _joystick;
+
         [Header("Animation")] 
         public Animator _animator;
+        private List<AnimatorControllerParameter> _animParams = new List<AnimatorControllerParameter>();
         private PlayerState _playerState = PlayerState.IDLE;
+        private const float MOVE_SPEED_RUN_PARAM = 0.3f;
+        private const float MOVE_SPEED_WALK_PARAM = 0.05f;
+        private const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
         
         void Awake()
         {
@@ -35,18 +43,27 @@ namespace GT
 
         void Update()
         {
-#if UNITY_EDITOR || UNITY_STANDALONE
-            // PC 환경 키보드 입력 (테스트용)
-            _hAxis = Input.GetAxisRaw("Horizontal");
-            _vAxis = Input.GetAxisRaw("Vertical");
-            _moveVec = new Vector3(_hAxis, 0, _vAxis).normalized;
-#endif
-
-            // PC, 모바일 조이패드 입력 
+            /// PC, 모바일 조이패드 입력 
+            // 플레이어의 이동과 회전을 계산
+            _hAxis = _joystick.Horizontal;
+            _vAxis = _joystick.Vertical;
+            Vector3 moveVec = new Vector3(_hAxis, 0, _vAxis);
             
-
-            transform.position += _moveVec * _speed * Time.deltaTime;
-            _SetPlayerAnimeMoveSpeed(_speed);
+            // 캐릭터 회전 적용
+            if (moveVec != Vector3.zero)
+            {
+                Quaternion dicQ = Quaternion.LookRotation(_moveVec);
+                transform.rotation = dicQ;
+            }
+            
+            // 스피드 계산 및 이동 적용
+            float distNormal = _joystick.Direction.sqrMagnitude;
+            float speed = SPEED_BASE * distNormal;
+            _moveVec = moveVec.normalized;
+            transform.position += _moveVec * speed * Time.deltaTime;
+            
+            // 이동 관련 애니메이션 세팅
+            _SetPlayerAnimeMoveSpeed(distNormal);
         }
 
         /// <summary>
@@ -55,17 +72,19 @@ namespace GT
         void _InitAnim()
         {
             _animator = GetComponent<Animator>();
+            _animParams = _animator.parameters.ToList();
         }
 
-        void _SetPlayerAnimeMoveSpeed(float speed)
+        // 조이스틱 거리를 이용해서 Run/Walk/Idle 상태의 애니메이션을 처리한다.
+        void _SetPlayerAnimeMoveSpeed(float dist)
         {
             PlayerState state;
             
-            if (speed > 2.0)
+            if ( dist > MOVE_SPEED_RUN_PARAM )
             {
                 state = PlayerState.RUN;
             }
-            else if (speed <= 2.0 && speed >= 0.1)
+            else if ( MOVE_SPEED_WALK_PARAM <= dist && dist <= MOVE_SPEED_RUN_PARAM )
             {
                 state = PlayerState.WALK;
             }
@@ -74,7 +93,7 @@ namespace GT
                 state = PlayerState.IDLE;
             }
             
-            _SetPlayerAnimState(state, speed);
+            _SetPlayerAnimState(state, dist);
         }
         
         void _SetPlayerAnimState(PlayerState state, float speed = 0.0f)
