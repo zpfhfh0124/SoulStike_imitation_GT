@@ -35,6 +35,10 @@ namespace GT
         private const float MOVE_SPEED_RUN_PARAM = 0.3f;
         private const float MOVE_SPEED_WALK_PARAM = 0.05f;
         private const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
+
+        [Header("공격/피격")] 
+        [SerializeField] private GameObject _objWeapon;
+        [SerializeField] private GameObject _objPlayerCollider;
         
         void Awake()
         {
@@ -117,8 +121,15 @@ namespace GT
 
             _playerState = state;
         }
+
         /// -------------------------------------------------------------
-        
-        
+
+        /// <summary>
+        /// 플레이어 공격 및 피격 처리
+        /// </summary>
+        void _OnAttack()
+        {
+            
+        }
     }
 }
