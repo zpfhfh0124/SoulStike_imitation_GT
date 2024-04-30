@@ -35,6 +35,7 @@ namespace GT
         private const float MOVE_SPEED_RUN_PARAM = 0.3f;
         private const float MOVE_SPEED_WALK_PARAM = 0.05f;
         private const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
+        private const string ANIM_PARAM_ATTACK = "Attack";
 
         [Header("공격/피격")] 
         [SerializeField] private GameObject _objWeapon;
@@ -68,6 +69,12 @@ namespace GT
             
             // 이동 관련 애니메이션 세팅
             _SetPlayerAnimeMoveSpeed(distNormal);
+            
+            // 공격
+            if (Input.GetMouseButtonUp(0))
+            {
+                _OnAttack();
+            }
         }
 
         /// <summary>
@@ -110,10 +117,13 @@ namespace GT
                 case PlayerState.WALK :
                 case PlayerState.RUN : 
                     
-                    _animator.SetFloat("MoveSpeed", speed);
+                    _animator.SetFloat(ANIM_PARAM_MOVESPEED, speed);
                     
                     break;
                 case PlayerState.ATTACK : 
+                    
+                    _animator.SetBool(ANIM_PARAM_ATTACK, true);
+                    
                     break;
                 case PlayerState.HIT :
                     break;
@@ -129,7 +139,7 @@ namespace GT
         /// </summary>
         void _OnAttack()
         {
-            
+            _SetPlayerAnimState(PlayerState.ATTACK);
         }
     }
 }
