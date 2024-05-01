@@ -136,16 +136,28 @@ PrefabInstance:
       value: FloorCircular01
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 100
+      propertyPath: m_LocalScale.x
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
-      propertyPath: m_LocalPosition.y
+      propertyPath: m_LocalScale.y
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 167.15898
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -84.38171
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 50
+      value: 879.26263
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -153,15 +165,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4516662712382076, guid: 84f58b13103497442b5350b50e97979c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -504,7 +516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!154 &925017648
 TerrainCollider:
   m_ObjectHideFlags: 0
@@ -551,7 +563,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: 8a4402af3120bea44a205e5e2c649dbf, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: 0ddb009b3c87c834f9f3a8495381befb, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
