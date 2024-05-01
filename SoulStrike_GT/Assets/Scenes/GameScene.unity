@@ -527,7 +527,7 @@ TerrainCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -610,6 +610,11 @@ PrefabInstance:
       propertyPath: _joystick
       value: 
       objectReference: {fileID: 1944603350}
+    - target: {fileID: 8361438469481044778, guid: e04c25841f9e8a240a75a61f11adffcc,
+        type: 3}
+      propertyPath: _objPlayerCollider
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8691188044625424278, guid: e04c25841f9e8a240a75a61f11adffcc,
         type: 3}
       propertyPath: m_LocalPosition.x
