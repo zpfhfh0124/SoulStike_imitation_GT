@@ -825,8 +825,8 @@ MonoBehaviour:
     offset: {x: 0, y: 0, z: 0}
     attackRoot: {fileID: 879862856835740128}
   effects: []
-  hitAudio: {fileID: 0}
-  attackAudio: {fileID: 0}
+  hitAudio: {fileID: 1062896814367539501}
+  attackAudio: {fileID: 6831490614124355118}
 --- !u!1 &1708943988139039828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1706,8 +1706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e60791859715ab4e8f30bbd0e76849d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyController: {fileID: 0}
-  _targetPlayercontroller: {fileID: 0}
 --- !u!95 &2036438896034730722
 Animator:
   serializedVersion: 5

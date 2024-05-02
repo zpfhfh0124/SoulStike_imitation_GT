@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,12 @@ namespace GT
 {
     public class EnemyChomperAnimManager : MonoBehaviour
     {
+        private Animator _animator;
+        public Animator Animator
+        {
+            get { return _animator; }
+        }
+        
         [Header("애니메이터 파라미터")]
         public static readonly int hashInPursuit = Animator.StringToHash("InPursuit");
         public static readonly int hashAttack = Animator.StringToHash("Attack");
@@ -23,43 +30,40 @@ namespace GT
         public static readonly int hashNearBase = Animator.StringToHash("NearBase");
         public static readonly int hashIdleState = Animator.StringToHash("ChomperIdle");
 
-        [Header("콘트롤러")]
-        [SerializeField] private EnemyController _enemyController;
-        [SerializeField] private PlayerController _targetPlayercontroller;
+        private void Start()
+        {
+            _animator = GetComponent<Animator>();
+        }
         
-        public EnemyController EnemyController
-        {
-            get { return _enemyController; }
-        }
-
-        public PlayerController TargetPlayerController
-        {
-            get { return _targetPlayercontroller; }
-        }
         
         public void StartPursuit()
         {
-            _enemyController.Animator.SetBool(hashInPursuit, true);
+            _animator.SetBool(hashInPursuit, true);
         }
         
         public void StopPursuit()
         {
-            _enemyController.Animator.SetBool(hashInPursuit, false);
+            _animator.SetBool(hashInPursuit, false);
+        }
+
+        public void SetNearBase(bool isNearBase)
+        {
+            _animator.SetBool(hashNearBase, isNearBase);
         }
         
         public void TriggerAttack()
         {
-            _enemyController.Animator.SetTrigger(hashAttack);
+            _animator.SetTrigger(hashAttack);
         }
 
         public void TriggerHit()
         {
-            _enemyController.Animator.SetTrigger(hashHit);
+            _animator.SetTrigger(hashHit);
         }
 
         public void TriggerDeath()
         {
-            _enemyController.Animator.SetTrigger(hashThrown);
+            _animator.SetTrigger(hashThrown);
         }
     }
 }

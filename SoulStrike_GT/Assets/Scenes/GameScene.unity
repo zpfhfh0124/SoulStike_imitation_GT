@@ -15883,20 +15883,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4739847086350254868, guid: e04c25841f9e8a240a75a61f11adffcc,
-        type: 3}
-      propertyPath: m_Height
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8347032502207345964, guid: e04c25841f9e8a240a75a61f11adffcc,
         type: 3}
       propertyPath: m_Name
       value: Player_Unity-Chan_Sword
-      objectReference: {fileID: 0}
-    - target: {fileID: 8347032502207345964, guid: e04c25841f9e8a240a75a61f11adffcc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8361438469481044778, guid: e04c25841f9e8a240a75a61f11adffcc,
         type: 3}
@@ -17045,7 +17035,7 @@ PrefabInstance:
     - target: {fileID: 7845105355664252100, guid: e61429a1a009a13419829fbd39aaf607,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.94
+      value: 17.73
       objectReference: {fileID: 0}
     - target: {fileID: 7845105355664252100, guid: e61429a1a009a13419829fbd39aaf607,
         type: 3}
@@ -17055,7 +17045,7 @@ PrefabInstance:
     - target: {fileID: 7845105355664252100, guid: e61429a1a009a13419829fbd39aaf607,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.96
+      value: -7.29
       objectReference: {fileID: 0}
     - target: {fileID: 7845105355664252100, guid: e61429a1a009a13419829fbd39aaf607,
         type: 3}
