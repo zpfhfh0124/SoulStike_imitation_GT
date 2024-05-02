@@ -23,7 +23,7 @@ namespace GT
 
         void _SetQuaterViewOffset()
         {
-            _offsetPos = new Vector3(0, 30, -20);
+            _offsetPos = new Vector3(0, 7, -5);
             _offsetRotate = new Vector3(60, 0, 0);
         }
 

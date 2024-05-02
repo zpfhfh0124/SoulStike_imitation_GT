@@ -20,7 +20,7 @@ namespace GT
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
-        private const float SPEED_BASE = 15;
+        private const float SPEED_BASE = 3;
         private float _hAxis;
         private float _vAxis;
         private Vector3 _moveVec;
