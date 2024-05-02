@@ -19,6 +19,9 @@ namespace GT
     /// </summary>
     public class PlayerController : MonoBehaviour
     {
+        [Header("플레이어 정보")] 
+        private PlayerInfo _playerInfo = new PlayerInfo();
+        
         [Header("Movement")]
         private const float SPEED_BASE = 3;
         private float _hAxis;
@@ -37,7 +40,7 @@ namespace GT
         private const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
         private const string ANIM_PARAM_ATTACK = "Attack";
 
-        [Header("공격/피격")] 
+        [Header("물리 요소")] 
         [SerializeField] private GameObject _objWeapon;
         [SerializeField] private GameObject _objPlayerCollider;
         
