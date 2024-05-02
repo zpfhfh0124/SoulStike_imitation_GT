@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 26
-  productGUID: 71dc0d19664701b4998fa781224653c3
+  productGUID: 009ba56e12d4e8a4ba7a4a64dd20d5b8
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -940,7 +940,7 @@ PlayerSettings:
   cloudProjectId: 36512011-67e1-403e-943b-67f870d1b376
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: SoulStrike_GT
+  projectName: Platformer3DClient
   organizationId: zpfhfh0124_unity
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 1
