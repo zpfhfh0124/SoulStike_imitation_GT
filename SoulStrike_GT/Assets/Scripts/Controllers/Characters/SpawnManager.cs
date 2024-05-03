@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
@@ -36,6 +37,31 @@ namespace GT
         public int GetEnemyCount()
         {
             return _monsterCount;
+        }
+
+        public Transform GetNearestMonster(Vector3 basePos)
+        {
+            EnemyController nearestEnemy;
+            float nearestDist = 0;
+            int nearestIdx = 0;
+            var monsters = _spawnPool.transform.GetComponentsInChildren<EnemyController>();
+            
+            for (int i = 0; i < monsters.Length; i++)
+            {
+                float dist = (basePos - monsters[i].transform.position).magnitude;
+
+                if (i > 0)
+                {
+                    if (nearestDist < dist)
+                    {
+                        nearestDist = dist;
+                        nearestIdx = i;
+                    }
+                }
+                else nearestDist = dist;
+            }
+
+            return monsters[nearestIdx].transform;
         }
 
         void Update()

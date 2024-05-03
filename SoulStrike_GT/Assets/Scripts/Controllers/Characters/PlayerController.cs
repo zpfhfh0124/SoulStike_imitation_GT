@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace GT
@@ -11,6 +12,7 @@ namespace GT
         WALK,
         RUN,
         ATTACK,
+        SKILL,
         HIT
     }
     
@@ -161,7 +163,19 @@ namespace GT
                     _animator.SetBool(ANIM_PARAM_ATTACK, true);
                     
                     break;
+                case PlayerState.SKILL :
+                    _animator.SetBool(ANIM_PARAM_ATTACK, true);
+                    int randSkill = Random.Range(1, 3);
+                    StringBuilder skillTrigger = new StringBuilder();
+                    skillTrigger.Append("Skill");
+                    skillTrigger.Append(randSkill.ToString());
+                    _animator.SetTrigger(skillTrigger.ToString());
+                    
+                    break;
                 case PlayerState.HIT :
+                    
+                    _animator.SetTrigger("Hit");
+                    
                     break;
             }
 
