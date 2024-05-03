@@ -12,8 +12,6 @@ namespace GT
     {
         [Header("타겟")] 
         private EnemyController _targetEnemy;
-        private SpawnManager _spawnManager;
-        
         
         void Start()
         {

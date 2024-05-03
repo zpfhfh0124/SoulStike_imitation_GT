@@ -1555,7 +1555,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882038399}
-  m_Mesh: {fileID: 2019576994}
+  m_Mesh: {fileID: 1173389722}
 --- !u!23 &882038405
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16044,11 +16044,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5817848954126254186, guid: e04c25841f9e8a240a75a61f11adffcc,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8347032502207345964, guid: e04c25841f9e8a240a75a61f11adffcc,
         type: 3}
       propertyPath: m_Name
@@ -16110,8 +16105,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2295098248046334398, guid: e04c25841f9e8a240a75a61f11adffcc, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e04c25841f9e8a240a75a61f11adffcc, type: 3}
