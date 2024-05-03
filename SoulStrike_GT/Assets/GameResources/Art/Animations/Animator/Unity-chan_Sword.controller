@@ -269,10 +269,7 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: 
-  m_Conditions:
-  - m_ConditionMode: 1
-    m_ConditionEvent: Attack
-    m_EventTreshold: 0
+  m_Conditions: []
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5069557538994412989}
   m_Solo: 0
@@ -328,13 +325,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -551,16 +548,16 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -1531712225694914859}
-    m_Position: {x: 280, y: 10, z: 0}
+    m_Position: {x: 300, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5069557538994412989}
-    m_Position: {x: 540, y: 10, z: 0}
+    m_Position: {x: 570, y: 10, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3278164247380834472}
     m_Position: {x: 300, y: 200, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9155968729417637754}
-    m_Position: {x: 300, y: 130, z: 0}
+    m_Position: {x: 300, y: 120, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -6548305304106081290}
     m_Position: {x: 300, y: 280, z: 0}
@@ -575,10 +572,10 @@ AnimatorStateMachine:
   - {fileID: -7589553729644918757}
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 50, y: 20, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_AnyStatePosition: {x: 20, y: 20, z: 0}
+  m_EntryPosition: {x: 20, y: 120, z: 0}
   m_ExitPosition: {x: 810, y: 150, z: 0}
-  m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
+  m_ParentStateMachinePosition: {x: 810, y: 10, z: 0}
   m_DefaultState: {fileID: -1531712225694914859}
 --- !u!1101 &5379137474709272165
 AnimatorStateTransition:

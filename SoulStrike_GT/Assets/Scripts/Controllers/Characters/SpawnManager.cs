@@ -67,14 +67,14 @@ namespace GT
             randPos = _spawnPos + randDir;
             
             NavMeshPath path = new NavMeshPath();
-            if(nma.CalculatePath(randPos, nma.path))
+            if(nma.CalculatePath(randPos, path))
             {
                 monster.transform.position = randPos;
                 _monsterCount++;
             }
             else
             {
-                //Destroy(monster);
+                Destroy(monster);
             }
         }
     }

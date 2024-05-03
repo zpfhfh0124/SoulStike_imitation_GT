@@ -14,6 +14,34 @@ namespace GT
         HIT
     }
     
+    public class PlayerInfo
+    {
+        public int _hp;
+        public int _sp;
+        public int _atk;
+        public int _def;
+
+        public void AddHp(int value)
+        {
+            _hp += value;
+        }
+
+        public void AddSp(int value)
+        {
+            _sp += value;
+        }
+
+        public void AddAtk(int value)
+        {
+            _atk += value;
+        }
+        
+        public void AddDef(int value)
+        {
+            _def += value;
+        }
+    }
+    
     /// <summary>
     /// 플레이어 컨트롤러 관련 (애니메이션, 이동, 회전)
     /// </summary>
@@ -21,6 +49,7 @@ namespace GT
     {
         [Header("플레이어 정보")] 
         private PlayerInfo _playerInfo = new PlayerInfo();
+        public PlayerInfo PlayerInfo { get { return _playerInfo; } }
         
         [Header("Movement")]
         private const float SPEED_BASE = 3;
@@ -47,6 +76,7 @@ namespace GT
         void Awake()
         {
             _InitAnim();
+            _InitPlayerInfo();
         }
 
         void Update()
@@ -72,14 +102,19 @@ namespace GT
             
             // 이동 관련 애니메이션 세팅
             _SetPlayerAnimeMoveSpeed(distNormal);
-            
-            // 공격
-            if (Input.GetMouseButtonUp(0))
-            {
-                _OnAttack();
-            }
         }
 
+        /// <summary>
+        /// 플레이어 정보 관련
+        /// </summary>
+        void _InitPlayerInfo()
+        {
+            _playerInfo._hp = 500;
+            _playerInfo._sp = 250;
+            _playerInfo._atk = 50;
+            _playerInfo._def = 50;
+        }
+        
         /// <summary>
         /// 애니메이션 관련
         /// </summary>

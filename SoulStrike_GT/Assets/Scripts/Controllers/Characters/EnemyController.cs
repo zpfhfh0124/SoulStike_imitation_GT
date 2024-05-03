@@ -16,6 +16,25 @@ namespace GT
         HIT,
     }
 
+    public class EnemyInfo
+    {
+        public int _hp;
+        public int _sp;
+    
+        public int EnemyHP { get { return _hp; } }
+        public int EnemySP { get { return _sp; } }
+    
+        public void AddHp(int value)
+        {
+            _hp += value;
+        }
+
+        public void AddSp(int value)
+        {
+            _sp += value;
+        }
+    }
+    
     public class EnemyController : MonoBehaviour
     {
         [Header("물리 요소")] 
@@ -32,9 +51,10 @@ namespace GT
         private const float SLOW_SPEED = 2;
         private const float FAST_SPEED = 5;
 
-        [Header("상태")] 
+        [Header("상태 및 정보")] 
         private EnemyState _state = EnemyState.IDLE;
         private EnemyInfo _enemyInfo = new EnemyInfo();
+        public EnemyInfo EnemyInfo { get { return _enemyInfo; } }
         
         [Header("AI")]
         private NavMeshAgent _navMeshAgent;
