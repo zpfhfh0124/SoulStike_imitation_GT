@@ -21,14 +21,14 @@ namespace GT
         [SerializeField] GameObject _objPlane;
         private GameObject _spawnPool;
         NavMeshSurface _navMesh;
-        Vector3 _navMeshSize;
+        Vector3 _spawnPos;
+        private float _spawnRadius = 15.0f;
         float _spawnTime = 0;
         private const float MAX_MONSTER_COOLTIME = 10.0f; 
 
         void Awake()
         {
             _navMesh = _objPlane.GetComponent<NavMeshSurface>();
-            _navMeshSize = _navMesh.size;
             _spawnPool = new GameObject("SpawnningPool");
         }
 
@@ -58,22 +58,23 @@ namespace GT
             yield return new WaitForSeconds(coolTime);
             _spawnTime = 0;
             GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
+            NavMeshAgent nma = _objMonster.GetComponent<NavMeshAgent>();
 
             // 스폰 위치
             Vector3 randPos;
-            float randX = Random.Range(0, _navMeshSize.x);
-            float randZ = Random.Range(0, _navMeshSize.z);
-            randPos = new Vector3(randX, 0, randZ);
-            NavMeshAgent nma = _objMonster.GetComponent<NavMeshAgent>();
+            Vector3 randDir = Random.insideUnitSphere * Random.Range(0, _spawnRadius);
+            randDir.y = 0;
+            randPos = _spawnPos + randDir;
+            
             NavMeshPath path = new NavMeshPath();
-            if(!nma.CalculatePath(randPos, path))
+            if(nma.CalculatePath(randPos, nma.path))
             {
                 monster.transform.position = randPos;
                 _monsterCount++;
             }
             else
             {
-                Destroy(monster);
+                //Destroy(monster);
             }
         }
     }
