@@ -10,7 +10,7 @@ namespace GT
     /// <summary>
     /// 플레이어, 몬스터 스폰 관련
     /// </summary>
-    public class SpawnManager : MonoBehaviour
+    public class SpawnManager : SingletonMB<SpawnManager>
     {
         [Header("몬스터")]
         [SerializeField] GameObject _objMonster;
@@ -24,17 +24,18 @@ namespace GT
         Vector3 _spawnPos;
         private float _spawnRadius = 15.0f;
         float _spawnTime = 0;
-        private const float MAX_MONSTER_COOLTIME = 10.0f; 
+        private const float MAX_MONSTER_COOLTIME = 10.0f;
 
-        void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _navMesh = _objPlane.GetComponent<NavMeshSurface>();
             _spawnPool = new GameObject("SpawnningPool");
         }
 
-        private void Start()
+        public int GetEnemyCount()
         {
-            
+            return _monsterCount;
         }
 
         void Update()

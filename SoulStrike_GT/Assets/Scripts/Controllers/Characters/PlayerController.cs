@@ -48,26 +48,25 @@ namespace GT
     public class PlayerController : MonoBehaviour
     {
         [Header("플레이어 정보")] 
-        private PlayerInfo _playerInfo = new PlayerInfo();
+        protected PlayerInfo _playerInfo = new PlayerInfo();
         public PlayerInfo PlayerInfo { get { return _playerInfo; } }
         
         [Header("Movement")]
-        private const float SPEED_BASE = 3;
-        private float _hAxis;
-        private float _vAxis;
-        private Vector3 _moveVec;
+        protected const float SPEED_BASE = 5;
+        protected float _hAxis;
+        protected float _vAxis;
+        protected Vector3 _moveVec;
 
         [Header("Joystick")] 
         public VariableJoystick _joystick;
 
         [Header("Animation")] 
         public Animator _animator;
-        private List<AnimatorControllerParameter> _animParams = new List<AnimatorControllerParameter>();
-        private PlayerState _playerState = PlayerState.IDLE;
-        private const float MOVE_SPEED_RUN_PARAM = 0.3f;
-        private const float MOVE_SPEED_WALK_PARAM = 0.05f;
-        private const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
-        private const string ANIM_PARAM_ATTACK = "Attack";
+        protected PlayerState _playerState = PlayerState.IDLE;
+        protected const float MOVE_SPEED_RUN_PARAM = 0.3f;
+        protected const float MOVE_SPEED_WALK_PARAM = 0.05f;
+        protected const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
+        protected const string ANIM_PARAM_ATTACK = "Attack";
 
         [Header("물리 요소")] 
         [SerializeField] private GameObject _objWeapon;
@@ -101,7 +100,7 @@ namespace GT
             transform.position += _moveVec * speed * Time.deltaTime;
             
             // 이동 관련 애니메이션 세팅
-            _SetPlayerAnimeMoveSpeed(distNormal);
+            SetPlayerAnimeMoveSpeed(distNormal);
         }
 
         /// <summary>
@@ -121,11 +120,10 @@ namespace GT
         void _InitAnim()
         {
             _animator = GetComponent<Animator>();
-            _animParams = _animator.parameters.ToList();
         }
 
         // 조이스틱 거리를 이용해서 Run/Walk/Idle 상태의 애니메이션을 처리한다.
-        void _SetPlayerAnimeMoveSpeed(float dist)
+        protected void SetPlayerAnimeMoveSpeed(float dist)
         {
             PlayerState state;
             
@@ -142,10 +140,10 @@ namespace GT
                 state = PlayerState.IDLE;
             }
             
-            _SetPlayerAnimState(state, dist);
+            SetPlayerAnimState(state, dist);
         }
         
-        void _SetPlayerAnimState(PlayerState state, float speed = 0.0f)
+        protected void SetPlayerAnimState(PlayerState state, float speed = 0.0f)
         {
             if (state == _playerState) return; 
             
@@ -177,7 +175,7 @@ namespace GT
         /// </summary>
         void _OnAttack()
         {
-            _SetPlayerAnimState(PlayerState.ATTACK);
+            SetPlayerAnimState(PlayerState.ATTACK);
         }
     }
 }
