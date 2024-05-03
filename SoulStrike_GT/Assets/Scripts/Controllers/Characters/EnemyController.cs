@@ -48,6 +48,8 @@ namespace GT
             _collider = GetComponent<BoxCollider>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animManager = GetComponent<EnemyChomperAnimManager>();
+
+            SetTarget();
         }
 
         private void Start()
@@ -68,6 +70,12 @@ namespace GT
         /// <summary>
         /// 플레이어 추적
         /// </summary>
+        public void SetTarget()
+        {
+            _targetPlayer = FindObjectOfType<PlayerController>();
+            if(_targetPlayer == null) Debug.LogError("Enemy가 추적할 플레이어 타겟을 할당하지 못했다. Scene에 PlayerController 오브젝트가 있는지 확인 필요!");
+        }
+        
         void _TrackingTargetPlayer()
         {
             _CulurateDistance(_targetPlayer.transform.position);

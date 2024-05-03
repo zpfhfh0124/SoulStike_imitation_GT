@@ -14,12 +14,12 @@ namespace GT
     {
         [Header("몬스터")]
         [SerializeField] GameObject _objMonster;
-        NavMeshAgent _nma;
         const int MAX_MONSTER_COUNT = 30;
         int _monsterCount = 0;
 
         [Header("스폰 관련")]
         [SerializeField] GameObject _objPlane;
+        private GameObject _spawnPool;
         NavMeshSurface _navMesh;
         Vector3 _navMeshSize;
         float _spawnTime = 0;
@@ -27,9 +27,9 @@ namespace GT
 
         void Awake()
         {
-            _nma = _objMonster.GetComponent<NavMeshAgent>();
             _navMesh = _objPlane.GetComponent<NavMeshSurface>();
             _navMeshSize = _navMesh.size;
+            _spawnPool = new GameObject("SpawnningPool");
         }
 
         private void Start()
@@ -57,20 +57,23 @@ namespace GT
         {
             yield return new WaitForSeconds(coolTime);
             _spawnTime = 0;
-            GameObject monster = GameObject.Instantiate(_objMonster);
-            monster.SetActive(true);
+            GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
 
             // 스폰 위치
             Vector3 randPos;
             float randX = Random.Range(0, _navMeshSize.x);
             float randZ = Random.Range(0, _navMeshSize.z);
             randPos = new Vector3(randX, 0, randZ);
-
+            NavMeshAgent nma = _objMonster.GetComponent<NavMeshAgent>();
             NavMeshPath path = new NavMeshPath();
-            if(!_nma.CalculatePath(randPos, path))
+            if(!nma.CalculatePath(randPos, path))
             {
                 monster.transform.position = randPos;
                 _monsterCount++;
+            }
+            else
+            {
+                Destroy(monster);
             }
         }
     }
