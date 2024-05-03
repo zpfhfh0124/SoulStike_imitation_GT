@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Random = UnityEngine.Random;
 
 namespace GT
 {
@@ -20,7 +22,8 @@ namespace GT
         [SerializeField] GameObject _objPlane;
         NavMeshSurface _navMesh;
         Vector3 _navMeshSize;
-        float _spawnTime = 10.0f;
+        float _spawnTime = 0;
+        private const float MAX_MONSTER_COOLTIME = 10.0f; 
 
         void Awake()
         {
@@ -29,11 +32,18 @@ namespace GT
             _navMeshSize = _navMesh.size;
         }
 
+        private void Start()
+        {
+            
+        }
+
         void Update()
         {
-            while(_monsterCount < MAX_MONSTER_COUNT)
+            if (CheckMonsterSpawn() && _spawnTime <= 0) 
             {
-                StartCoroutine(Spawn());
+                // ½ºÆù ÄðÅ¸ÀÓ ·£´ý
+                _spawnTime = Random.Range(0, MAX_MONSTER_COOLTIME);
+                StartCoroutine(Spawn(_spawnTime));
             }
         }
 
@@ -43,11 +53,12 @@ namespace GT
             return isAdded;
         }
 
-        IEnumerator Spawn()
+        IEnumerator Spawn(float coolTime)
         {
-            // ½ºÆù ÄðÅ¸ÀÓ ·£´ý
-            yield return new WaitForSeconds(Random.Range(0, _spawnTime));
+            yield return new WaitForSeconds(coolTime);
+            _spawnTime = 0;
             GameObject monster = GameObject.Instantiate(_objMonster);
+            monster.SetActive(true);
 
             // ½ºÆù À§Ä¡
             Vector3 randPos;
@@ -56,11 +67,7 @@ namespace GT
             randPos = new Vector3(randX, 0, randZ);
 
             NavMeshPath path = new NavMeshPath();
-            if(_nma.CalculatePath(randPos, path))
-            {
-                yield return null;
-            }
-            else
+            if(!_nma.CalculatePath(randPos, path))
             {
                 monster.transform.position = randPos;
                 _monsterCount++;
