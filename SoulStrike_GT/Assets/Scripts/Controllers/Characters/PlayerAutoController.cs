@@ -6,6 +6,8 @@ namespace GT
 {
     public class PlayerAutoController : MonoBehaviour
     {
+        
+        
         void Start()
         {
 
