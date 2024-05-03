@@ -1,12 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace GT
 {
+    public enum EnemyType
+    {
+        CHOMPER = 0,
+        GRENADIER,
+        SPITTER
+    }
+
     public enum EnemyState
     {
         IDLE,
@@ -16,23 +25,17 @@ namespace GT
         HIT,
     }
 
-    public class EnemyInfo
+    [Serializable]
+    public class EnemyData
     {
-        public int _hp;
-        public int _sp;
-    
-        public int EnemyHP { get { return _hp; } }
-        public int EnemySP { get { return _sp; } }
-    
-        public void AddHp(int value)
-        {
-            _hp += value;
-        }
-
-        public void AddSp(int value)
-        {
-            _sp += value;
-        }
+        public int hp;
+        public int atk;
+        public int def;
+        public float pursutied_distance;
+        public float near_distance;
+        public float far_distance;
+        public float slow_speed;
+        public float fast_speed;
     }
     
     public class EnemyController : MonoBehaviour
@@ -45,16 +48,14 @@ namespace GT
         [SerializeField] private PlayerController _targetPlayer;
         private float _playerDist = 0; // 플레이어와의 거리
         private float _speed = 2; // 추적 속도
-        private const float PURSUITED_DISTANCE = 2;
-        private const float NEAR_DISTANCE = 5;
-        private const float FAR_DISTANCE = 10;
-        private const float SLOW_SPEED = 2;
-        private const float FAST_SPEED = 5;
+        
 
-        [Header("상태 및 정보")] 
+        [Header("상태 및 정보 - EnemyType을 정확히 지정할 것")] 
+        [SerializeField] private EnemyType _enemyType;
         private EnemyState _state = EnemyState.IDLE;
-        private EnemyInfo _enemyInfo = new EnemyInfo();
-        public EnemyInfo EnemyInfo { get { return _enemyInfo; } }
+        private EnemyData[] _enemyDatas; // Chomper, Grenadier, Spitter 순으로 저장할 것
+        private EnemyData _enemyData;
+        public EnemyData EnemyInfo { get { return _enemyData; } }
         
         [Header("AI")]
         private NavMeshAgent _navMeshAgent;
@@ -72,6 +73,24 @@ namespace GT
             SetTarget();
         }
 
+        void _GetJsonEnemyData()
+        {
+            var json_text = File.ReadAllText(JsonDataManager.Instance.FILEPATH_ENEMYDATA);
+            _enemyDatas = JsonConvert.DeserializeObject<EnemyData[]>(json_text);
+        }
+
+        void _SetEnemyData()
+        {
+            _enemyData = _enemyDatas[(int)_enemyType];
+            Debug.Log($"EnemyController - 읽어들인 JsonEnemyData -> HP : {_enemyData.hp}, ATK : {_enemyData.atk}, DEF : {_enemyData.def}");
+        }
+
+        private void Awake()
+        {
+            _GetJsonEnemyData();
+            _SetEnemyData();
+        }
+
         private void Start()
         {
             _Init();
@@ -87,6 +106,8 @@ namespace GT
             _FixedVelocity();
         }
 
+
+
         /// <summary>
         /// 플레이어 추적
         /// </summary>
@@ -100,22 +121,22 @@ namespace GT
         {
             _CulurateDistance(_targetPlayer.transform.position);
 
-            if (_playerDist < PURSUITED_DISTANCE)
+            if (_playerDist < _enemyData.pursutied_distance)
             {
-                _speed = FAST_SPEED;
+                _speed = _enemyData.fast_speed;
                 _navMeshAgent.isStopped = false;
                 _SetStateAnim(EnemyState.ATTACK);
             }
-            else if (_playerDist < NEAR_DISTANCE)
+            else if (_playerDist < _enemyData.near_distance)
             {
-                _speed = FAST_SPEED;
+                _speed = _enemyData.fast_speed;
                 _SetStateAnim(EnemyState.RUN);
                 _navMeshAgent.isStopped = false;
                 _SetNavMeshPursuit();
             }
-            else if (_playerDist < FAR_DISTANCE)
+            else if (_playerDist < _enemyData.far_distance)
             {
-                _speed = SLOW_SPEED;
+                _speed = _enemyData.slow_speed;
                 _SetStateAnim(EnemyState.WALK);
                 _navMeshAgent.isStopped = false;
                 _SetNavMeshPursuit();

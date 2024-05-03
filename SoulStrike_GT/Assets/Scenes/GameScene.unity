@@ -1144,7 +1144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 558428972}
   m_Layer: 0
-  m_Name: Controllers
+  m_Name: Managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1555,7 +1555,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 882038399}
-  m_Mesh: {fileID: 1173389722}
+  m_Mesh: {fileID: 2019576994}
 --- !u!23 &882038405
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16755,6 +16755,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1295033355}
   m_CullTransparentMesh: 1
+--- !u!1 &1310585430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1310585431}
+  - component: {fileID: 1310585432}
+  m_Layer: 0
+  m_Name: JSONDatas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1310585431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310585430}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.303788, y: -10.620115, z: -1.8569974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1310585432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310585430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d706b73d3e2cbb48913e3d05594a130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnData:
+    monster_max_count: 30
+    monster_max_cooltime: 10
+    spawn_radius: 15
+  playerData:
+    hp: 500
+    sp: 250
+    atk: 50
+    def: 50
+  enemyData:
+  - hp: 20
+    atk: 15
+    def: 10
+    pursutied_distance: 2
+    near_distance: 5
+    far_distance: 15
+    slow_speed: 2
+    fast_speed: 4
+  - hp: 25
+    atk: 17
+    def: 11
+    pursutied_distance: 1
+    near_distance: 3
+    far_distance: 12
+    slow_speed: 1
+    fast_speed: 3
+  - hp: 30
+    atk: 23
+    def: 30
+    pursutied_distance: 3
+    near_distance: 3
+    far_distance: 7
+    slow_speed: 1
+    fast_speed: 2
 --- !u!1001 &1388037058
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17396,3 +17474,4 @@ SceneRoots:
   - {fileID: 391025436}
   - {fileID: 948938854}
   - {fileID: 558428972}
+  - {fileID: 1310585431}

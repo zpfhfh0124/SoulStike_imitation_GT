@@ -1,47 +1,58 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 namespace GT
 {
+    [Serializable]
+    public class SpawnData
+    {
+        public int monster_max_count;
+        public float monster_max_cooltime;
+        public float spawn_radius;
+    }
+
     /// <summary>
-    /// «√∑π¿ÃæÓ, ∏ÛΩ∫≈Õ Ω∫∆˘ ∞¸∑√
+    /// ÌîåÎ†àÏù¥Ïñ¥, Î™¨Ïä§ÌÑ∞ Ïä§Ìè∞ Í¥ÄÎ†®
     /// </summary>
     public class SpawnManager : SingletonMB<SpawnManager>
-    {
-        [Header("∏ÛΩ∫≈Õ")]
+    { 
+        [Header("Î™¨Ïä§ÌÑ∞")]
         [SerializeField] GameObject _objMonster;
-        const int MAX_MONSTER_COUNT = 30;
-        int _monsterCount = 0;
 
-        [Header("Ω∫∆˘ ∞¸∑√")]
+        [Header("Ïä§Ìè∞ Í¥ÄÎ†®")]
         [SerializeField] GameObject _objPlane;
         private GameObject _spawnPool;
         NavMeshSurface _navMesh;
         Vector3 _spawnPos;
-        private float _spawnRadius = 15.0f;
         float _spawnTime = 0;
-        private const float MAX_MONSTER_COOLTIME = 10.0f;
+
+        [Header("Data")]
+        SpawnData _spawnData;
 
         protected override void Awake()
         {
             base.Awake();
             _navMesh = _objPlane.GetComponent<NavMeshSurface>();
             _spawnPool = new GameObject("SpawnningPool");
+            _GetJsonSpawnData();
         }
 
-        public int GetEnemyCount()
+        void _GetJsonSpawnData()
         {
-            return _monsterCount;
+            string json_text = File.ReadAllText(JsonDataManager.Instance.FILEPATH_SPAWNDATA);
+            _spawnData = JsonConvert.DeserializeObject<SpawnData>(json_text);
+            Debug.Log($"SpawnManager - ÏùΩÏñ¥Îì§Ïù∏ JsonSpawnData -> monster_max_count : {_spawnData.monster_max_count}, monster_max_cooltime : {_spawnData.monster_max_cooltime}, spawn_radius : {_spawnData.spawn_radius}");
         }
 
         public Transform GetNearestMonster(Vector3 basePos)
         {
-            EnemyController nearestEnemy;
             float nearestDist = 0;
             int nearestIdx = 0;
             var monsters = _spawnPool.transform.GetComponentsInChildren<EnemyController>();
@@ -68,16 +79,22 @@ namespace GT
         {
             if (CheckMonsterSpawn() && _spawnTime <= 0) 
             {
-                // Ω∫∆˘ ƒ≈∏¿” ∑£¥˝
-                _spawnTime = Random.Range(0, MAX_MONSTER_COOLTIME);
+                // Ïä§Ìè∞ Ïø®ÌÉÄÏûÑ ÎûúÎç§
+                _spawnTime = Random.Range(0, _spawnData.monster_max_cooltime);
                 StartCoroutine(Spawn(_spawnTime));
             }
         }
 
         bool CheckMonsterSpawn()
         {
-            bool isAdded = (_monsterCount < MAX_MONSTER_COUNT) ? true : false;
+            bool isAdded = (GetSpawnedMonsterCount() < _spawnData.monster_max_count) ? true : false;
             return isAdded;
+        }
+
+        public int GetSpawnedMonsterCount()
+        {
+            var monsters = _spawnPool.transform.GetComponentsInChildren<EnemyController>();
+            return monsters.Length;
         }
 
         IEnumerator Spawn(float coolTime)
@@ -87,9 +104,9 @@ namespace GT
             GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
             NavMeshAgent nma = monster.GetComponent<NavMeshAgent>();
 
-            // Ω∫∆˘ ¿ßƒ°
+            // Ïä§Ìè∞ ÏúÑÏπò
             Vector3 randPos;
-            Vector3 randDir = Random.insideUnitSphere * Random.Range(0, _spawnRadius);
+            Vector3 randDir = Random.insideUnitSphere * Random.Range(0, _spawnData.spawn_radius);
             randDir.y = 0;
             randPos = _spawnPos + randDir;
             
@@ -97,7 +114,6 @@ namespace GT
             if(nma.CalculatePath(randPos, path))
             {
                 monster.transform.position = randPos;
-                _monsterCount++;
             }
             else
             {

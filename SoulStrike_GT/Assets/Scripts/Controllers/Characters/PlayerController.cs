@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace GT
@@ -16,31 +19,32 @@ namespace GT
         HIT
     }
     
-    public class PlayerInfo
+    [Serializable]
+    public class PlayerData
     {
-        public int _hp;
-        public int _sp;
-        public int _atk;
-        public int _def;
+        public int hp;
+        public int sp;
+        public int atk;
+        public int def;
 
         public void AddHp(int value)
         {
-            _hp += value;
+            hp += value;
         }
 
         public void AddSp(int value)
         {
-            _sp += value;
+            sp += value;
         }
 
         public void AddAtk(int value)
         {
-            _atk += value;
+            atk += value;
         }
         
         public void AddDef(int value)
         {
-            _def += value;
+            def += value;
         }
     }
     
@@ -50,8 +54,8 @@ namespace GT
     public class PlayerController : MonoBehaviour
     {
         [Header("플레이어 정보")] 
-        protected PlayerInfo _playerInfo = new PlayerInfo();
-        public PlayerInfo PlayerInfo { get { return _playerInfo; } }
+        protected PlayerData _playerData = new PlayerData();
+        public PlayerData PlayerInfo { get { return _playerData; } }
         
         [Header("Movement")]
         protected const float SPEED_BASE = 5;
@@ -77,7 +81,7 @@ namespace GT
         void Awake()
         {
             _InitAnim();
-            _InitPlayerInfo();
+            _GetJsonPlayerData();
         }
 
         void Update()
@@ -108,12 +112,11 @@ namespace GT
         /// <summary>
         /// 플레이어 정보 관련
         /// </summary>
-        void _InitPlayerInfo()
+        void _GetJsonPlayerData()
         {
-            _playerInfo._hp = 500;
-            _playerInfo._sp = 250;
-            _playerInfo._atk = 50;
-            _playerInfo._def = 50;
+            var json_text = File.ReadAllText(JsonDataManager.Instance.FILEPATH_PLAYERDATA);
+            _playerData = JsonConvert.DeserializeObject<PlayerData>(json_text);
+            Debug.Log($"PlayerController - 읽어들인 JsonPlayerData -> HP : {_playerData.hp}, SP : {_playerData.sp}, ATK : {_playerData.atk}, DEF : {_playerData.def}");
         }
         
         /// <summary>
@@ -165,7 +168,7 @@ namespace GT
                     break;
                 case PlayerState.SKILL :
                     _animator.SetBool(ANIM_PARAM_ATTACK, true);
-                    int randSkill = Random.Range(1, 3);
+                    int randSkill = UnityEngine.Random.Range(1, 3);
                     StringBuilder skillTrigger = new StringBuilder();
                     skillTrigger.Append("Skill");
                     skillTrigger.Append(randSkill.ToString());
