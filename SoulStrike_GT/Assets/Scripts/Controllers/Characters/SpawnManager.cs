@@ -58,7 +58,7 @@ namespace GT
             yield return new WaitForSeconds(coolTime);
             _spawnTime = 0;
             GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
-            NavMeshAgent nma = _objMonster.GetComponent<NavMeshAgent>();
+            NavMeshAgent nma = monster.GetComponent<NavMeshAgent>();
 
             // 스폰 위치
             Vector3 randPos;
