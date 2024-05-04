@@ -31,6 +31,11 @@ namespace GT
             {
                 jsonDataManager.SetEnemyData();
             }
+
+            if (GUILayout.Button("WeaponData 설정"))
+            {
+                jsonDataManager.SetWeaponData();
+            }
         }
     }
 #endif
@@ -43,9 +48,11 @@ namespace GT
         public readonly string FILEPATH_SPAWNDATA = "Assets/JSON/JSON_SpawnData.json";
         public readonly string FILEPATH_PLAYERDATA = "Assets/JSON/JSON_PlayerData.json";
         public readonly string FILEPATH_ENEMYDATA = "Assets/JSON/JSON_EnemyData.json";
+        public readonly string FILEPATH_WEAPONDATA = "Assets/JSON/JSON_WeaponData.json";
         public SpawnData spawnData;
         public PlayerData playerData;
         public EnemyData[] enemyData;
+        public WeaponData weaponData;
 
         public void SetSpawnData()
         {
@@ -66,6 +73,13 @@ namespace GT
             var json_enemyData = JsonConvert.SerializeObject(enemyData);
             Debug.Log(json_enemyData);
             File.WriteAllText(FILEPATH_ENEMYDATA, json_enemyData);
+        }
+
+        public void SetWeaponData()
+        {
+            var json_weaponData = JsonConvert.SerializeObject(weaponData);
+            Debug.Log(json_weaponData);
+            File.WriteAllText(FILEPATH_WEAPONDATA, json_weaponData);
         }
     }
 }

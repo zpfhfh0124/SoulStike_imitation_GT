@@ -35,7 +35,7 @@ namespace GT
     {
         [Header("플레이어 정보")] 
         protected PlayerData _playerData = new PlayerData();
-        public PlayerData PlayerInfo { get { return _playerData; } }
+        public PlayerData PlayerData { get { return _playerData; } }
         
         [Header("Movement")]
         protected const float SPEED_BASE = 5;
@@ -43,8 +43,11 @@ namespace GT
         protected float _vAxis;
         protected Vector3 _moveVec;
 
-        [Header("Joystick")] 
+        [Header("UI")] 
         public VariableJoystick _joystick;
+        UIFollow3D _uiFollower;
+        [SerializeField] ObjectUI _objectUI;
+
 
         [Header("Animation")] 
         public Animator _animator;
@@ -62,6 +65,7 @@ namespace GT
         {
             _InitAnim();
             _GetJsonPlayerData();
+            _weapon.AddAtk(_playerData.atk);
         }
 
         void Update()
@@ -87,6 +91,12 @@ namespace GT
             
             // 이동 관련 애니메이션 세팅
             SetPlayerAnimeMoveSpeed(distNormal);
+        }
+
+        private void LateUpdate()
+        {
+            // 플레이어 HP, SP 자연 회복
+
         }
 
         /// <summary>
@@ -168,7 +178,7 @@ namespace GT
         /// -------------------------------------------------------------
 
         /// <summary>
-        /// 플레이어 공격 및 피격
+        /// 플레이어 공격 및 피격, 회복
         /// </summary>
         public void OnAttack()
         {
@@ -179,6 +189,25 @@ namespace GT
         public void HitDamage()
         {
             SetPlayerAnimState(PlayerState.HIT);
+        }
+
+        void GetDamaged(int damageValue)
+        {
+            damageValue -= (int)Math.Round(_playerData.def * 0.2f);
+            int addValue = UnityEngine.Random.Range(-5, 5);
+            damageValue += addValue;
+        }
+
+        void _AddHp(int value)
+        {
+            _playerData.hp += value;
+            _objectUI.SetCurHp(_playerData.hp);
+        }
+
+        void _AddSp(int value)
+        {
+            _playerData.sp += value;
+            _objectUI.SetCurSp(_playerData.sp);
         }
     }
 }

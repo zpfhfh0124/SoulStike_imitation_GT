@@ -56,12 +56,14 @@ namespace GT
         private EnemyData[] _enemyDatas; // Chomper, Grenadier, Spitter 순으로 저장할 것
         private EnemyData _enemyData;
         public EnemyData EnemyInfo { get { return _enemyData; } }
-        
+
         [Header("AI")]
         private NavMeshAgent _navMeshAgent;
 
         [Header("Animation")] 
         private EnemyChomperAnimManager _animManager;
+
+        [SerializeField] UIFollow3D _ui;
 
         void _Init()
         {
@@ -69,7 +71,7 @@ namespace GT
             _collider = GetComponent<BoxCollider>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animManager = GetComponent<EnemyChomperAnimManager>();
-
+            _ui.SetUITarget(transform);
             SetTarget();
         }
 
@@ -94,11 +96,17 @@ namespace GT
         private void Start()
         {
             _Init();
+            
         }
 
         private void Update()
         {
             _TrackingTargetPlayer();
+
+            if(_enemyData.hp <= 0)
+            {
+                // Die
+            }
         }
 
         private void FixedUpdate()
@@ -168,6 +176,9 @@ namespace GT
             _navMeshAgent.SetDestination(_targetPlayer.transform.position);
         }
 
+        /// <summary>
+        /// 애니메이션
+        /// </summary>
         void _SetStateAnim(EnemyState state)
         {
             if ( _state == state || _state == EnemyState.HIT ) return;
@@ -214,6 +225,34 @@ namespace GT
             }
 
             _state = state;
+        }
+
+        /// <summary>
+        /// 공격, 피격 처리
+        /// </summary>
+        /// <param name="collision"></param>
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.collider.tag == "Weapon")
+            {
+                _SetStateAnim(EnemyState.HIT);
+                var weapon = collision.transform.GetComponent<Weapon>();
+                GetDamaged(weapon.WeaponData.atk);
+            }
+
+            if(collision.collider.tag == "Player" && _state == EnemyState.ATTACK)
+            {
+                
+            }
+        }
+
+        void GetDamaged(int damageValue)
+        {
+            damageValue -= (int)Math.Round(_enemyData.def * 0.2f);
+            int addValue = UnityEngine.Random.Range(-5, 5);
+            damageValue += addValue;
+
+            _enemyData.hp -= damageValue;
         }
     }
 }
