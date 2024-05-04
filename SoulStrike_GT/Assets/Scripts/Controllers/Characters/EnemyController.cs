@@ -42,7 +42,7 @@ namespace GT
     {
         [Header("물리 요소")] 
         private Rigidbody _rigid;
-        private CapsuleCollider _collider;
+        [SerializeField] private BoxCollider _atkCollider;
         
         [Header("플레이어 탐색")] 
         [SerializeField] private PlayerController _targetPlayer;
@@ -52,9 +52,10 @@ namespace GT
         [Header("상태 및 정보 - EnemyType을 정확히 지정할 것")] 
         [SerializeField] private EnemyType _enemyType;
         private EnemyState _state = EnemyState.IDLE;
+        public EnemyState EnemyState { get { return _state; } }
         private EnemyData[] _enemyDatas; // Chomper, Grenadier, Spitter 순으로 저장할 것
         private EnemyData _enemyData;
-        public EnemyData EnemyInfo { get { return _enemyData; } }
+        public EnemyData EnemyData { get { return _enemyData; } }
 
         [Header("AI")]
         private NavMeshAgent _navMeshAgent;
@@ -68,11 +69,11 @@ namespace GT
         void _Init()
         {
             _rigid = GetComponent<Rigidbody>();
-            _collider = GetComponent<CapsuleCollider>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animManager = GetComponent<EnemyChomperAnimManager>();
             _uiFollower.SetUITarget(transform);
             SetTarget();
+            _SetAttackCollider(false);
         }
 
         void _GetJsonEnemyData()
@@ -216,6 +217,7 @@ namespace GT
                     if (_state != EnemyState.ATTACK)
                     {
                         _animManager.TriggerAttack();
+                        OnAttack();
                     }
                     else return;
                     break;
@@ -231,6 +233,20 @@ namespace GT
         /// 공격, 피격 처리
         /// </summary>
         /// <param name="collision"></param>
+        void _SetAttackCollider(bool isOn)
+        {
+            _atkCollider.enabled = isOn;
+        }
+
+        IEnumerator OnAttack()
+        {
+            yield return new WaitForSeconds(0.1f);
+            _SetAttackCollider(true);
+
+            yield return new WaitForSeconds(0.1f);
+            _SetAttackCollider(false);
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             if(collision.collider.tag == "Weapon")
@@ -247,7 +263,7 @@ namespace GT
             damageValue -= (int)Math.Round(_enemyData.def * 0.2f);
             int addValue = UnityEngine.Random.Range(-5, 5);
             damageValue += addValue;
-
+            Debug.Log($"플레이어 -> 몬스터 공격 최종 데미지 : {damageValue}");
             AddHp(damageValue * -1);
         }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace GT
 {
@@ -12,15 +13,19 @@ namespace GT
     {
         [Header("타겟")] 
         private EnemyController _targetEnemy;
-        
-        void Start()
+
+        [Header("자동이동")]
+        NavMeshAgent _nma;
+
+        private void Update()
         {
             
         }
 
-        void Update()
+        void _TrackingNearestMonster()
         {
-            
+            var nearestMonster = SpawnManager.Instance.GetNearestMonster(transform.position);
+
         }
     }
 }

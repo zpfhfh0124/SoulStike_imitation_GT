@@ -19,6 +19,7 @@ namespace GT
         {
             SetMaxHp(maxValue);
             SetCurHp(maxValue);
+            Debug.Log($"초기 HP 설정 : {maxValue}");
         }
 
         public void InitSp(int maxValue)
@@ -40,13 +41,13 @@ namespace GT
         public void SetCurHp(int value)
         {
             _curHp = value;
-            _hpSlider.value = (_curHp / _hpMax);
+            _hpSlider.value = ((float)_curHp / (float)_hpMax);
         }
 
         public void SetCurSp(int value)
         {
             _curSp = value;
-            _spSlider.value = (_curSp / _spMax);
+            _spSlider.value = ((float)_curSp / (float)_spMax);
         }
     }
 }

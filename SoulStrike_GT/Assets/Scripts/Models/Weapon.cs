@@ -49,7 +49,7 @@ namespace GT
             yield return new WaitForSeconds(0.1f);
             SetActiveColliderTrailFX(true);
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             SetActiveColliderTrailFX(false);
         }
 

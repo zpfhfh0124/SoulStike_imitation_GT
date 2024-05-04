@@ -186,28 +186,41 @@ namespace GT
         /// <summary>
         /// 플레이어 공격 및 피격, 회복
         /// </summary>
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.transform.tag == "Enemy")
+            {
+                var enemy = collision.transform.GetComponentInParent<EnemyController>();
+                GetDamaged(enemy.EnemyData.atk);
+            }
+        }
+
         public void OnAttack()
         {
             SetPlayerAnimState(PlayerState.ATTACK);
             _weapon.UseWeapon();
         }
 
-        public void HitDamage()
+        public void OnHit()
         {
             SetPlayerAnimState(PlayerState.HIT);
         }
 
         void GetDamaged(int damageValue)
         {
+            OnHit();
             damageValue -= (int)Math.Round(_playerData.def * 0.2f);
             int addValue = UnityEngine.Random.Range(-5, 5);
             damageValue += addValue;
+            Debug.Log($"플레이어 <- 몬스터 피격 최종 데미지 : {damageValue}");
+            _AddHp(damageValue * -1);
         }
 
         void _AddHp(int value)
         {
             _playerData.hp += value;
             _objectUI.SetCurHp(_playerData.hp);
+            Debug.Log($"현재 플레이어 HP : {_playerData.hp}");
         }
 
         void _AddSp(int value)
