@@ -1192,7 +1192,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.5067568
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1200,8 +1200,8 @@ TrailRenderer:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 1
-        value: 0
+        time: 0.8776086
+        value: 0.19594596
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -1214,9 +1214,9 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 0.22467959, g: 0.67369115, b: 0.9339623, a: 0.78431374}
-      key1: {r: 1, g: 1, b: 1, a: 0.39215687}
-      key2: {r: 0, g: 0, b: 0, a: 0}
-      key3: {r: 0, g: 0, b: 0, a: 0}
+      key1: {r: 0.514151, g: 0.9370205, b: 1, a: 0.22718704}
+      key2: {r: 0, g: 0, b: 0, a: 0.19607843}
+      key3: {r: 0, g: 0, b: 0, a: 0.19607843}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
       key6: {r: 0, g: 0, b: 0, a: 0}
@@ -1230,9 +1230,9 @@ TrailRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 50308
-      atime2: 0
-      atime3: 0
+      atime1: 35081
+      atime2: 42212
+      atime3: 47417
       atime4: 0
       atime5: 0
       atime6: 0
@@ -1240,7 +1240,7 @@ TrailRenderer:
       m_Mode: 0
       m_ColorSpace: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
+      m_NumAlphaKeys: 4
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
@@ -1248,7 +1248,7 @@ TrailRenderer:
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 1.5
+  m_MinVertexDistance: 1
   m_MaskInteraction: 0
   m_Autodestruct: 0
   m_Emitting: 1

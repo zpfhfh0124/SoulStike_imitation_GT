@@ -54,8 +54,8 @@ namespace GT
         protected const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
         protected const string ANIM_PARAM_ATTACK = "Attack";
 
-        [Header("물리 요소")] 
-        [SerializeField] private GameObject _objWeapon;
+        [Header("물리 요소")]
+        [SerializeField] Weapon _weapon;
         [SerializeField] private GameObject _objPlayerCollider;
         
         void Awake()
@@ -143,11 +143,11 @@ namespace GT
                     break;
                 case PlayerState.ATTACK : 
                     
-                    _animator.SetBool(ANIM_PARAM_ATTACK, true);
+                    _animator.SetTrigger(ANIM_PARAM_ATTACK);
                     
                     break;
                 case PlayerState.SKILL :
-                    _animator.SetBool(ANIM_PARAM_ATTACK, true);
+                    _animator.SetTrigger(ANIM_PARAM_ATTACK);
                     int randSkill = UnityEngine.Random.Range(1, 3);
                     StringBuilder skillTrigger = new StringBuilder();
                     skillTrigger.Append("Skill");
@@ -170,9 +170,10 @@ namespace GT
         /// <summary>
         /// 플레이어 공격 및 피격
         /// </summary>
-        void _OnAttack()
+        public void OnAttack()
         {
             SetPlayerAnimState(PlayerState.ATTACK);
+            _weapon.UseWeapon();
         }
 
         public void HitDamage()
