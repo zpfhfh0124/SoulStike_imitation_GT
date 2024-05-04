@@ -272,5 +272,13 @@ namespace GT
             _enemyData.hp += value;
             _objectUI.SetCurHp(_enemyData.hp);
         }
+
+        /// <summary>
+        /// FX 설정
+        /// </summary>
+        void FxDeath()
+        {
+
+        }
     }
 }

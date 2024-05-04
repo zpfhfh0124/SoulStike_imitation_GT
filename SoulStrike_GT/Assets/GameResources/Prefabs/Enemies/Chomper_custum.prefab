@@ -1865,6 +1865,7 @@ GameObject:
   - component: {fileID: 7845105355664252100}
   - component: {fileID: 6625475896886948986}
   - component: {fileID: 7961280340674191119}
+  - component: {fileID: 1208700022904732516}
   - component: {fileID: 2036438896034730722}
   - component: {fileID: 9009443916836181415}
   - component: {fileID: 7254514317261105482}
@@ -1926,6 +1927,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e60791859715ab4e8f30bbd0e76849d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1208700022904732516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2925434756076743017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98eff27483b7fd4b9468fad8847a5b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollPrefab: {fileID: 1751530482674952, guid: f530521f50b2c5f4bb57c0c727be18c0,
+    type: 3}
 --- !u!95 &2036438896034730722
 Animator:
   serializedVersion: 5
