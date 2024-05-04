@@ -26,26 +26,6 @@ namespace GT
         public int sp;
         public int atk;
         public int def;
-
-        public void AddHp(int value)
-        {
-            hp += value;
-        }
-
-        public void AddSp(int value)
-        {
-            sp += value;
-        }
-
-        public void AddAtk(int value)
-        {
-            atk += value;
-        }
-        
-        public void AddDef(int value)
-        {
-            def += value;
-        }
     }
     
     /// <summary>
@@ -188,11 +168,16 @@ namespace GT
         /// -------------------------------------------------------------
 
         /// <summary>
-        /// 플레이어 공격 및 피격 처리
+        /// 플레이어 공격 및 피격
         /// </summary>
         void _OnAttack()
         {
             SetPlayerAnimState(PlayerState.ATTACK);
+        }
+
+        public void HitDamage()
+        {
+            SetPlayerAnimState(PlayerState.HIT);
         }
     }
 }
