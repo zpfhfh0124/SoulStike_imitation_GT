@@ -65,6 +65,12 @@ namespace GT
         {
             _InitAnim();
             _GetJsonPlayerData();
+            _objectUI.InitHp(_playerData.hp);
+            _objectUI.InitSp(_playerData.sp);
+        }
+
+        private void Start()
+        {
             _weapon.AddAtk(_playerData.atk);
         }
 

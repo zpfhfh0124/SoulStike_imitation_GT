@@ -15,6 +15,18 @@ namespace GT
         int _spMax;
         int _curSp;
 
+        public void InitHp(int maxValue)
+        {
+            SetMaxHp(maxValue);
+            SetCurHp(maxValue);
+        }
+
+        public void InitSp(int maxValue)
+        {
+            SetMaxSp(maxValue);
+            SetCurSp(maxValue);
+        }
+
         public void SetMaxHp(int maxValue)
         {
             _hpMax = maxValue;

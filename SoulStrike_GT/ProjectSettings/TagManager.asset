@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FlythroughCam
   - Weapon
+  - Enemy
   layers:
   - Default
   - TransparentFX

@@ -968,7 +968,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8223923141596412157}
   - component: {fileID: 4279249032350967073}
-  m_Layer: 9
+  m_Layer: 28
   m_Name: FX_Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3724,6 +3724,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _joystick: {fileID: 0}
+  _objectUI: {fileID: 0}
   _animator: {fileID: 0}
   _weapon: {fileID: 6455629523483982770}
   _objPlayerCollider: {fileID: 8347032502207345964}
@@ -4123,7 +4124,7 @@ PrefabInstance:
     - target: {fileID: 3681803168646304426, guid: 3f5c2f3308223ea4cab367b9b1138998,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 3681803168646304426, guid: 3f5c2f3308223ea4cab367b9b1138998,
         type: 3}
@@ -4138,7 +4139,7 @@ PrefabInstance:
     - target: {fileID: 4826168374097883952, guid: 3f5c2f3308223ea4cab367b9b1138998,
         type: 3}
       propertyPath: m_Layer
-      value: 9
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 4826168374097883952, guid: 3f5c2f3308223ea4cab367b9b1138998,
         type: 3}
@@ -4212,40 +4213,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6455629523483982770}
-    - targetCorrespondingSourceObject: {fileID: 3681803168646304426, guid: 3f5c2f3308223ea4cab367b9b1138998,
+    - targetCorrespondingSourceObject: {fileID: 4826168374097883952, guid: 3f5c2f3308223ea4cab367b9b1138998,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1976615133233719810}
+      addedObject: {fileID: 8082912104135791824}
   m_SourcePrefab: {fileID: 100100000, guid: 3f5c2f3308223ea4cab367b9b1138998, type: 3}
---- !u!1 &2533207029841432993 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3681803168646304426, guid: 3f5c2f3308223ea4cab367b9b1138998,
-    type: 3}
-  m_PrefabInstance: {fileID: 1170837113838142219}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &1976615133233719810
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2533207029841432993}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.24220395
-  m_Height: 1.3989378
-  m_Direction: 2
-  m_Center: {x: 0.02, y: -0.04, z: 0.60046303}
 --- !u!1 &5964552296153919547 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4826168374097883952, guid: 3f5c2f3308223ea4cab367b9b1138998,
@@ -4264,8 +4236,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14d47bf34208797428eaf5885803401b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 1976615133233719810}
+  _collider: {fileID: 8082912104135791824}
   _trailFX: {fileID: 4279249032350967073}
+--- !u!136 &8082912104135791824
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5964552296153919547}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.24220395
+  m_Height: 1.3989378
+  m_Direction: 2
+  m_Center: {x: 0.02, y: -0.04, z: 0.60046303}
 --- !u!4 &7249952550716719656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8404463782369345827, guid: 3f5c2f3308223ea4cab367b9b1138998,

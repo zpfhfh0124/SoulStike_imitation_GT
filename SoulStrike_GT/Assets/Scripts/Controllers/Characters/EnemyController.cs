@@ -42,13 +42,12 @@ namespace GT
     {
         [Header("물리 요소")] 
         private Rigidbody _rigid;
-        private BoxCollider _collider;
+        private CapsuleCollider _collider;
         
         [Header("플레이어 탐색")] 
         [SerializeField] private PlayerController _targetPlayer;
         private float _playerDist = 0; // 플레이어와의 거리
         private float _speed = 2; // 추적 속도
-        
 
         [Header("상태 및 정보 - EnemyType을 정확히 지정할 것")] 
         [SerializeField] private EnemyType _enemyType;
@@ -63,15 +62,16 @@ namespace GT
         [Header("Animation")] 
         private EnemyChomperAnimManager _animManager;
 
-        [SerializeField] UIFollow3D _ui;
+        [SerializeField] UIFollow3D _uiFollower;
+        [SerializeField] ObjectUI _objectUI;
 
         void _Init()
         {
             _rigid = GetComponent<Rigidbody>();
-            _collider = GetComponent<BoxCollider>();
+            _collider = GetComponent<CapsuleCollider>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animManager = GetComponent<EnemyChomperAnimManager>();
-            _ui.SetUITarget(transform);
+            _uiFollower.SetUITarget(transform);
             SetTarget();
         }
 
@@ -91,12 +91,12 @@ namespace GT
         {
             _GetJsonEnemyData();
             _SetEnemyData();
+            _objectUI.InitHp(_enemyData.hp);
         }
 
         private void Start()
         {
             _Init();
-            
         }
 
         private void Update()
@@ -238,11 +238,7 @@ namespace GT
                 _SetStateAnim(EnemyState.HIT);
                 var weapon = collision.transform.GetComponent<Weapon>();
                 GetDamaged(weapon.WeaponData.atk);
-            }
-
-            if(collision.collider.tag == "Player" && _state == EnemyState.ATTACK)
-            {
-                
+                Debug.Log($"몬스터 피격");
             }
         }
 
@@ -252,7 +248,13 @@ namespace GT
             int addValue = UnityEngine.Random.Range(-5, 5);
             damageValue += addValue;
 
-            _enemyData.hp -= damageValue;
+            AddHp(damageValue * -1);
+        }
+
+        void AddHp(int value)
+        {
+            _enemyData.hp += value;
+            _objectUI.SetCurHp(_enemyData.hp);
         }
     }
 }
