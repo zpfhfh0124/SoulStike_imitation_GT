@@ -67,6 +67,7 @@ namespace GT
 
         [SerializeField] UIFollow3D _uiFollower;
         [SerializeField] ObjectUI _objectUI;
+        public ObjectUI UI { get { return _objectUI; } }
 
         void _Init()
         {

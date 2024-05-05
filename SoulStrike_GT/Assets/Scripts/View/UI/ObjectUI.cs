@@ -74,5 +74,10 @@ namespace GT
             yield return new WaitForSeconds(2.0f);
             _damageTMP.gameObject.SetActive(false);
         } 
+
+        public void DestroyUI()
+        {
+            Destroy(gameObject);
+        }
     }
 }

@@ -125,6 +125,7 @@ namespace GT
             }
             else
             {
+                monster.GetComponent<EnemyController>().UI.DestroyUI();
                 Destroy(monster);
             }
         }
