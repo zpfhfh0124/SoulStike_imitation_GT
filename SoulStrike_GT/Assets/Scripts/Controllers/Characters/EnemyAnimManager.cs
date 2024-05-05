@@ -46,6 +46,7 @@ namespace GT
         public RandomAudioPlayer footstepAudioPlayer;
         public RandomAudioPlayer throwAudioPlayer;
         public RandomAudioPlayer punchAudioPlayer;
+        public RandomAudioPlayer gruntAudio;
 
         private void Awake()
         {
@@ -124,6 +125,12 @@ namespace GT
         public void AttackEnd()
         {
             meleeWeapon.EndAttack();
+        }
+
+        public void Grunt()
+        {
+            if (gruntAudio != null)
+                gruntAudio.PlayRandomClip();
         }
 
         public void ActivateShield()

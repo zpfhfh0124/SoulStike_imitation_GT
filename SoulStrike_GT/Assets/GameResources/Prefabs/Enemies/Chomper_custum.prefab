@@ -1927,11 +1927,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e60791859715ab4e8f30bbd0e76849d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeWeapon: {fileID: 0}
   deathAudioPlayer: {fileID: 478341831473229419}
   damageAudioPlayer: {fileID: 1062896814367539501}
   footstepAudioPlayer: {fileID: 8848311301386611454}
   throwAudioPlayer: {fileID: 7337206491900535720}
   punchAudioPlayer: {fileID: 6831490614124355118}
+  gruntAudio: {fileID: 6204328220337635902}
 --- !u!114 &1208700022904732516
 MonoBehaviour:
   m_ObjectHideFlags: 0
