@@ -90475,7 +90475,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844027688410840}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0149b5ab8f608c943b260125ac76d875, type: 3}
   m_Name: 
@@ -95637,6 +95637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e60791859715ab4e8f30bbd0e76849d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeWeapon: {fileID: 0}
   deathAudioPlayer: {fileID: 114410821115410084}
   damageAudioPlayer: {fileID: 114378170450615176}
   footstepAudioPlayer: {fileID: 114402400383904146}

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Gamekit3D;
 
 /// <summary>
 /// Enemy Chomper의 애니메이션 관리
@@ -16,7 +17,16 @@ namespace GT
         {
             get { return _animator; }
         }
-        
+
+        EnemyController _enemy;
+
+        [Header("Enemy 요소")]
+        [SerializeField] MeleeWeapon meleeWeapon;
+        GameObject shield;
+        float m_ShieldActivationTime = 0;
+        Damageable m_Damageable;
+
+
         [Header("애니메이터 파라미터")]
         public static readonly int hashInPursuit = Animator.StringToHash("InPursuit");
         public static readonly int hashAttack = Animator.StringToHash("Attack");
@@ -31,16 +41,42 @@ namespace GT
         public static readonly int hashIdleState = Animator.StringToHash("ChomperIdle");
 
         [Header("Audio")]
-        public Gamekit3D.RandomAudioPlayer deathAudioPlayer;
-        public Gamekit3D.RandomAudioPlayer damageAudioPlayer;
-        public Gamekit3D.RandomAudioPlayer footstepAudioPlayer;
-        public Gamekit3D.RandomAudioPlayer throwAudioPlayer;
-        public Gamekit3D.RandomAudioPlayer punchAudioPlayer;
-        private void Start()
+        public RandomAudioPlayer deathAudioPlayer;
+        public RandomAudioPlayer damageAudioPlayer;
+        public RandomAudioPlayer footstepAudioPlayer;
+        public RandomAudioPlayer throwAudioPlayer;
+        public RandomAudioPlayer punchAudioPlayer;
+
+        private void Awake()
         {
-            _animator = GetComponent<Animator>();
+            Init();
         }
         
+        void Init()
+        {
+            _enemy = GetComponent<EnemyController>();
+            _animator = GetComponent<Animator>();
+            m_Damageable = GetComponentInChildren<Damageable>();
+
+            // Enemy Type 별로 지정
+            switch (_enemy.EnemyType)
+            {
+                case EnemyType.CHOMPER:
+                    meleeWeapon = GetComponentInChildren<MeleeWeapon>();
+                    break;
+                case EnemyType.GRENADIER:
+                    shield = GetComponentInChildren<GrenadierShield>().gameObject;
+                    meleeWeapon = GetComponentInChildren<MeleeWeapon>();
+                    break;
+                case EnemyType.SPITTER:
+                    break;
+                case EnemyType.MAX:
+                default:
+                    break;
+            }
+            
+            
+        }
         
         public void StartPursuit()
         {
@@ -78,6 +114,32 @@ namespace GT
         public void PlayStep()
         {
             footstepAudioPlayer.PlayRandomClip();
+        }
+
+        public void AttackBegin()
+        {
+            meleeWeapon.BeginAttack(false);
+        }
+
+        public void AttackEnd()
+        {
+            meleeWeapon.EndAttack();
+        }
+
+        public void ActivateShield()
+        {
+            shield.SetActive(true);
+            m_ShieldActivationTime = 3.0f;
+            m_Damageable.SetColliderState(false);
+
+            StartCoroutine(DeactivateShield(m_ShieldActivationTime));
+        }
+
+        IEnumerator DeactivateShield(float time)
+        {
+            yield return new WaitForSeconds(time);
+            shield.SetActive(false);
+            m_Damageable.SetColliderState(true);
         }
     }
 }

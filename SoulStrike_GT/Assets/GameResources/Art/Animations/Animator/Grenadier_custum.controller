@@ -800,13 +800,13 @@ AnimatorStateMachine:
   - {fileID: 1101213361836636120}
   m_EntryTransitions: []
   m_StateMachineTransitions:
+  - first: {fileID: 1107894670010967052}
+    second:
+    - {fileID: 1109194324521357116}
   - first: {fileID: -6519442039737965547}
     second:
     - {fileID: 1919428459527024611}
     - {fileID: 9020595143609648985}
-  - first: {fileID: 1107894670010967052}
-    second:
-    - {fileID: 1109194324521357116}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 150, y: -160, z: 0}
   m_EntryPosition: {x: 140, y: 10, z: 0}

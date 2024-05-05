@@ -2747,6 +2747,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e60791859715ab4e8f30bbd0e76849d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeWeapon: {fileID: 0}
   deathAudioPlayer: {fileID: 114354233313049246}
   damageAudioPlayer: {fileID: 114090539237447468}
   footstepAudioPlayer: {fileID: 114054466260960878}

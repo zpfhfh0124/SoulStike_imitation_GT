@@ -52,6 +52,7 @@ namespace GT
 
         [Header("상태 및 정보 - EnemyType을 정확히 지정할 것")] 
         [SerializeField] private EnemyType _enemyType;
+        public EnemyType EnemyType { get { return _enemyType; } } 
         private EnemyState _state = EnemyState.IDLE;
         public EnemyState EnemyState { get { return _state; } }
         private EnemyData[] _enemyDatas; // Chomper, Grenadier, Spitter 순으로 저장할 것
