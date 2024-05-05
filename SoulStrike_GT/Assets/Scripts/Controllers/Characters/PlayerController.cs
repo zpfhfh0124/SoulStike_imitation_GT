@@ -33,15 +33,15 @@ namespace GT
     /// </summary>
     public class PlayerController : MonoBehaviour
     {
-        [Header("플레이어 정보")] 
-        protected PlayerData _playerData = new PlayerData();
+        [Header("플레이어 정보")]
+        private PlayerData _playerData = new PlayerData();
         public PlayerData PlayerData { get { return _playerData; } }
         
         [Header("Movement")]
-        protected const float SPEED_BASE = 5;
-        protected float _hAxis;
-        protected float _vAxis;
-        protected Vector3 _moveVec;
+        private const float SPEED_BASE = 5;
+        private float _hAxis;
+        private float _vAxis;
+        private Vector3 _moveVec;
 
         [Header("UI")] 
         public VariableJoystick _joystick;
@@ -51,11 +51,11 @@ namespace GT
 
         [Header("Animation")] 
         public Animator _animator;
-        protected PlayerState _playerState = PlayerState.IDLE;
-        protected const float MOVE_SPEED_RUN_PARAM = 0.3f;
-        protected const float MOVE_SPEED_WALK_PARAM = 0.05f;
-        protected const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
-        protected const string ANIM_PARAM_ATTACK = "Attack";
+        private PlayerState _playerState = PlayerState.IDLE;
+        private const float MOVE_SPEED_RUN_PARAM = 0.3f;
+        private const float MOVE_SPEED_WALK_PARAM = 0.05f;
+        private const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
+        private const string ANIM_PARAM_ATTACK = "Attack";
 
         [Header("물리 요소")]
         [SerializeField] Weapon _weapon;
@@ -124,7 +124,7 @@ namespace GT
         }
 
         // 조이스틱 거리를 이용해서 Run/Walk/Idle 상태의 애니메이션을 처리한다.
-        protected void SetPlayerAnimeMoveSpeed(float dist)
+        private void SetPlayerAnimeMoveSpeed(float dist)
         {
             PlayerState state;
             
@@ -143,8 +143,8 @@ namespace GT
             
             SetPlayerAnimState(state, dist);
         }
-        
-        protected void SetPlayerAnimState(PlayerState state, float speed = 0.0f)
+
+        private void SetPlayerAnimState(PlayerState state, float speed = 0.0f)
         {
             if (state == _playerState) return; 
             
