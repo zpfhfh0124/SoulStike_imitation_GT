@@ -9,7 +9,7 @@ using UnityEngine.UIElements;
 /// </summary>
 namespace GT
 {
-    public class EnemyChomperAnimManager : MonoBehaviour
+    public class EnemyAnimManager : MonoBehaviour
     {
         private Animator _animator;
         public Animator Animator
@@ -30,6 +30,12 @@ namespace GT
         public static readonly int hashNearBase = Animator.StringToHash("NearBase");
         public static readonly int hashIdleState = Animator.StringToHash("ChomperIdle");
 
+        [Header("Audio")]
+        public Gamekit3D.RandomAudioPlayer deathAudioPlayer;
+        public Gamekit3D.RandomAudioPlayer damageAudioPlayer;
+        public Gamekit3D.RandomAudioPlayer footstepAudioPlayer;
+        public Gamekit3D.RandomAudioPlayer throwAudioPlayer;
+        public Gamekit3D.RandomAudioPlayer punchAudioPlayer;
         private void Start()
         {
             _animator = GetComponent<Animator>();
@@ -64,6 +70,14 @@ namespace GT
         public void TriggerDeath()
         {
             _animator.SetTrigger(hashThrown);
+        }
+
+        /// <summary>
+        /// 애니메이션 이벤트
+        /// </summary>
+        public void PlayStep()
+        {
+            footstepAudioPlayer.PlayRandomClip();
         }
     }
 }

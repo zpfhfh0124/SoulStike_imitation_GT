@@ -13,7 +13,8 @@ namespace GT
     {
         CHOMPER = 0,
         GRENADIER,
-        SPITTER
+        SPITTER,
+        MAX
     }
 
     public enum EnemyState
@@ -61,7 +62,7 @@ namespace GT
         private NavMeshAgent _navMeshAgent;
 
         [Header("Animation")] 
-        private EnemyChomperAnimManager _animManager;
+        private EnemyAnimManager _animManager;
 
         [SerializeField] UIFollow3D _uiFollower;
         [SerializeField] ObjectUI _objectUI;
@@ -70,7 +71,7 @@ namespace GT
         {
             _rigid = GetComponent<Rigidbody>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _animManager = GetComponent<EnemyChomperAnimManager>();
+            _animManager = GetComponent<EnemyAnimManager>();
             _uiFollower.SetUITarget(transform);
             SetTarget();
             _SetAttackCollider(false);

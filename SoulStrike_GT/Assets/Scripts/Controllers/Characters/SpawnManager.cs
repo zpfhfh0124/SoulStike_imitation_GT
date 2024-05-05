@@ -22,8 +22,9 @@ namespace GT
     /// 플레이어, 몬스터 스폰 관련
     /// </summary>
     public class SpawnManager : SingletonMB<SpawnManager>
-    { 
+    {
         [Header("몬스터")]
+        [SerializeField] List<GameObject> _objAllMonsters;
         [SerializeField] GameObject _objMonster;
 
         [Header("스폰 관련")]
@@ -42,6 +43,12 @@ namespace GT
             _navMesh = _objPlane.GetComponent<NavMeshSurface>();
             _spawnPool = new GameObject("SpawnningPool");
             _GetJsonSpawnData();
+        }
+
+        void ResetMonsterType()
+        {
+            int idx = Random.Range(0, (int)EnemyType.MAX);
+            _objMonster = _objAllMonsters[idx];
         }
 
         void _GetJsonSpawnData()
@@ -101,6 +108,7 @@ namespace GT
         {
             yield return new WaitForSeconds(coolTime);
             _spawnTime = 0;
+            ResetMonsterType();
             GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
             NavMeshAgent nma = monster.GetComponent<NavMeshAgent>();
 

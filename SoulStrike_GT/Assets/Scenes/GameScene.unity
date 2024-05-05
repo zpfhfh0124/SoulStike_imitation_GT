@@ -1257,8 +1257,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c1e759838c1510479e671a6261a488e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objMonster: {fileID: 2925434756076743017, guid: e61429a1a009a13419829fbd39aaf607,
-    type: 3}
+  _objAllMonsters:
+  - {fileID: 2925434756076743017, guid: e61429a1a009a13419829fbd39aaf607, type: 3}
+  - {fileID: 1878432194002958, guid: bdf344edbc8a43f4bb8a5d1bd931dcab, type: 3}
+  - {fileID: 1500461124768838, guid: cb43729146ed7bf42b3c41e1eacffe02, type: 3}
+  _objMonster: {fileID: 0}
   _objPlane: {fileID: 882038399}
 --- !u!1 &509991453
 GameObject:
@@ -1426,6 +1429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hpSlider: {fileID: 879288234}
   _spSlider: {fileID: 842878702}
+  _damageTMP: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
