@@ -46,6 +46,7 @@ namespace GT
         {
             int idx = Random.Range(0, (int)EnemyType.MAX);
             _objMonster = _objAllMonsters[idx];
+            Debug.Log($"스폰될 몬스터 타입 : {(EnemyType)idx}");
         }
 
         void _GetJsonSpawnData()

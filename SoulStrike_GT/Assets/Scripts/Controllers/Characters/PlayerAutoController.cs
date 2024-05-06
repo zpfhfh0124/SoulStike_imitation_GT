@@ -18,8 +18,6 @@ namespace GT
         [Header("자동이동")]
         NavMeshAgent _nma;
 
-        float _elapsedTime = 0;
-
         private void Awake()
         {
             Init();

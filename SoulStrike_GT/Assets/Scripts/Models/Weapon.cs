@@ -17,9 +17,12 @@ namespace GT
     {
         [Header("물리 요소")]
         public CapsuleCollider _collider;
-        public TrailRenderer _trailFX;
         WeaponData _weaponData;
         public WeaponData WeaponData { get { return _weaponData; } }
+
+        [Header("이펙트")]
+        public TrailRenderer _trailFX;
+        public ParticleSystem[] _skillFXs;
 
         private void Awake()
         {
@@ -44,6 +47,11 @@ namespace GT
             StartCoroutine(Swing());
         }
 
+        public void SkillWeapon(int skillIdx)
+        {
+            SetActiveSkillFX(skillIdx);
+        }
+
         IEnumerator Swing()
         {
             yield return new WaitForSeconds(0.1f);
@@ -57,6 +65,11 @@ namespace GT
         {
             _collider.enabled = isOn;
             _trailFX.enabled = isOn;
+        }
+
+        protected void SetActiveSkillFX(int idx)
+        {
+            _skillFXs[idx].Play(true);
         }
     }
 }

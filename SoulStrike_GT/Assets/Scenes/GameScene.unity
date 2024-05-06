@@ -28197,12 +28197,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720696529}
   m_Mesh: {fileID: 4300570, guid: abb792f1ea926db498220e93caccf43e, type: 3}
---- !u!1 &722210086 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8347032502207345964, guid: e04c25841f9e8a240a75a61f11adffcc,
-    type: 3}
-  m_PrefabInstance: {fileID: 948938854}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &723296733
 GameObject:
   m_ObjectHideFlags: 0
@@ -53225,15 +53219,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8347032502207345964, guid: e04c25841f9e8a240a75a61f11adffcc,
-        type: 3}
-      insertIndex: 3
-      addedObject: {fileID: 1811898759}
-    - targetCorrespondingSourceObject: {fileID: 8347032502207345964, guid: e04c25841f9e8a240a75a61f11adffcc,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1811898758}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e04c25841f9e8a240a75a61f11adffcc, type: 3}
 --- !u!1 &954181541
 GameObject:
@@ -66840,8 +66826,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnData:
-    monster_max_count: 30
-    monster_max_cooltime: 10
+    monster_max_count: 50
+    monster_max_cooltime: 5
     spawn_radius: 5
   playerData:
     hp: 500
@@ -66849,6 +66835,7 @@ MonoBehaviour:
     atk: 50
     def: 50
     speed: 5
+    skill_cooltime: 10
   enemyData:
   - hp: 20
     atk: 15
@@ -84669,44 +84656,10 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 948938854}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722210086}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5be80dec67db6614fba1253f96283d2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!195 &1811898758
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722210086}
-  m_Enabled: 1
-  m_AgentTypeID: -1372625422
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
---- !u!114 &1811898759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 722210086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 998c19e4ea3078e4f999f14221ca8a0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1812965064

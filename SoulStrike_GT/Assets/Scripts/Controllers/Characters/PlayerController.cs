@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Gamekit3D;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,7 @@ namespace GT
         public int atk;
         public int def;
         public float speed;
+        public float skill_cooltime;
     }
     
     /// <summary>
@@ -40,7 +42,6 @@ namespace GT
         public PlayerData PlayerData { get { return _playerData; } }
         int _maxHP;
         int _maxSP;
-        float _skillCooltime = 0f;
         
         [Header("Movement")]
         private float _hAxis;
@@ -65,6 +66,14 @@ namespace GT
         [Header("물리 요소")]
         [SerializeField] Weapon _weapon;
         [SerializeField] private GameObject _objPlayerCollider;
+
+        [Header("사운드")]
+        public RandomAudioPlayer idleAudioPlayer;
+        public RandomAudioPlayer attackAudioPlayer;
+        public RandomAudioPlayer skillAudioPlayer;
+        public RandomAudioPlayer damageAudioPlayer;
+        public RandomAudioPlayer footstepAudioPlayer;
+        public RandomAudioPlayer dieAudio;
 
         bool _isAuto = false;
         public bool IsAuto { get { return _isAuto; } }
@@ -179,16 +188,21 @@ namespace GT
                     _animator.SetFloat(ANIM_PARAM_MOVESPEED, speed);
                     
                     break;
-                case PlayerState.ATTACK : 
-                case PlayerState.SKILL :
-                    _animator.SetTrigger(ANIM_PARAM_ATTACK);
-                    if (_skillCooltime <= 0)
+                case PlayerState.ATTACK :
+                    if (_isAuto && _playerData.skill_cooltime <= 0)
                     {
-                        int randSkill = UnityEngine.Random.Range(1, 3);
-                        StringBuilder skillTrigger = new StringBuilder();
-                        skillTrigger.Append("Skill");
-                        skillTrigger.Append(randSkill.ToString());
-                        _animator.SetTrigger(skillTrigger.ToString());
+                        SetPlayerAnimState(PlayerState.SKILL);
+                    }
+                    else
+                    {
+                        _animator.SetTrigger(ANIM_PARAM_ATTACK);
+                    }
+                    break;
+                case PlayerState.SKILL :
+                    if (_playerData.skill_cooltime <= 0)
+                    {
+                        _playerData.skill_cooltime = 10f;
+                        StartCoroutine(OnSkill(_playerData.skill_cooltime));
                     }
                     break;
                 case PlayerState.HIT :
@@ -220,6 +234,19 @@ namespace GT
         {
             SetPlayerAnimState(PlayerState.ATTACK);
             _weapon.UseWeapon();
+        }
+
+        public IEnumerator OnSkill(float cooltime)
+        {
+            int randSkill = UnityEngine.Random.Range(1, 3);
+            StringBuilder skillTrigger = new StringBuilder();
+            skillTrigger.Append("Skill");
+            skillTrigger.Append(randSkill.ToString());
+            _animator.SetTrigger(skillTrigger.ToString());
+
+            _weapon.SkillWeapon(randSkill - 1);
+            yield return new WaitForSeconds(cooltime);
+            _playerData.skill_cooltime = 0f;
         }
 
         public void OnHit()
@@ -256,6 +283,34 @@ namespace GT
             if (_playerData.sp >= _maxSP) _playerData.sp = _maxSP;
 
             _objectUI.SetCurSp(_playerData.sp);
+        }
+
+        /// <summary>
+        /// 애니메이션 이벤트
+        /// </summary>
+        public void IdleAudio()
+        {
+            idleAudioPlayer.PlayRandomClip();
+        }
+
+        public void StepAudio()
+        {
+            footstepAudioPlayer.PlayRandomClip();
+        }
+
+        public void AtackAudio()
+        {
+            attackAudioPlayer.PlayRandomClip();
+        }
+
+        public void SkillAudio()
+        {
+            skillAudioPlayer.PlayRandomClip();
+        }
+
+        public void HitAudio()
+        {
+            damageAudioPlayer.PlayRandomClip();
         }
     }
 }
