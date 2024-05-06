@@ -190,6 +190,7 @@ namespace GT
         {
             if(collision.transform.tag == "Enemy")
             {
+                transform.Rotate(collision.transform.forward);
                 var enemy = collision.transform.GetComponentInParent<EnemyController>();
                 GetDamaged(enemy.EnemyData.atk);
             }

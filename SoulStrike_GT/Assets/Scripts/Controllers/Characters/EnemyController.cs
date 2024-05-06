@@ -64,7 +64,9 @@ namespace GT
 
         [Header("Animation")] 
         private EnemyAnimManager _animManager;
+        RagdollEvent _ragdoll;
 
+        [Header("UI")]
         [SerializeField] UIFollow3D _uiFollower;
         [SerializeField] ObjectUI _objectUI;
         public ObjectUI UI { get { return _objectUI; } }
@@ -75,6 +77,7 @@ namespace GT
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _animManager = GetComponent<EnemyAnimManager>();
             _uiFollower.SetUITarget(transform);
+            _ragdoll = GetComponent<RagdollEvent>();
             SetTarget();
             _SetAttackCollider(false);
         }
@@ -106,11 +109,7 @@ namespace GT
         private void Update()
         {
             _TrackingTargetPlayer();
-
-            if(_enemyData.hp <= 0)
-            {
-                // Die
-            }
+            CheckDieSetRagdoll();
         }
 
         private void FixedUpdate()
@@ -274,6 +273,19 @@ namespace GT
         {
             _enemyData.hp += value;
             _objectUI.SetCurHp(_enemyData.hp);
+        }
+
+        void CheckDieSetRagdoll()
+        {
+            if (_enemyData.hp <= 0)
+            {
+                _objectUI.DestroyUI();
+                // Die
+                if (_ragdoll != null)
+                {
+                    _ragdoll.Replace();
+                }
+            }
         }
 
         /// <summary>
