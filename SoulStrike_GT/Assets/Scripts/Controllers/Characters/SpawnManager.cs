@@ -28,8 +28,6 @@ namespace GT
         [SerializeField] GameObject _objMonster;
 
         [Header("스폰 관련")]
-        [SerializeField] GameObject _spawnableArea;
-        [SerializeField] NavMeshSurface _navMesh;
         private GameObject _spawnPool;
         Vector3 _spawnPos;
         float _spawnTime = 0;
