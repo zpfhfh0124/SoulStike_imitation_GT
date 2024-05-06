@@ -45,9 +45,7 @@ namespace GT
             {
                 // 캐릭터 회전 적용
                 _targetEnemy = nearestMonster.GetComponent<EnemyController>();
-                Quaternion dicQ = Quaternion.LookRotation(_targetEnemy.transform.position);
-                transform.rotation = dicQ;
-
+                transform.LookAt(_targetEnemy.transform.position);
                 // 타겟 몬스터와의 거리
                 float dist = (transform.position - _targetEnemy.transform.position).magnitude;
                 float distSpeed = 0f;

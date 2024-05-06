@@ -61,8 +61,8 @@ namespace GT
             yield return new WaitForSeconds(0.1f);
             SetActiveSkillFX(skillIdx, true);
 
-            yield return new WaitForSeconds(0.5f);
-            SetActiveSkillFX(skillIdx, false);
+            /*yield return new WaitForSeconds(5.0f);
+            SetActiveSkillFX(skillIdx, false);*/
         }
 
         protected void SetActiveColliderTrailFX(bool isOn)

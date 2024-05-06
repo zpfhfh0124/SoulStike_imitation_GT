@@ -66,12 +66,18 @@ namespace GT
         {
             _damageTMP.gameObject.SetActive(true);
             _damageTMP.text = damage.ToString();
+            _damageTMP.alpha = 1.0f;
             StartCoroutine(_HideDamageTMP());
         }
 
         IEnumerator _HideDamageTMP()
         {
             yield return new WaitForSeconds(2.0f);
+            
+            while(_damageTMP.alpha > 0)
+            {
+                _damageTMP.alpha -= Time.deltaTime;
+            }
             _damageTMP.gameObject.SetActive(false);
         } 
 

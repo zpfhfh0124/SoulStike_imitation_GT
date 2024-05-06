@@ -54132,7 +54132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 977264452}
-  - component: {fileID: 977264453}
   m_Layer: 25
   m_Name: Block_D
   m_TagString: Untagged
@@ -54414,18 +54413,6 @@ Transform:
   - {fileID: 1852904263}
   m_Father: {fileID: 224837393}
   m_LocalEulerAnglesHint: {x: 0, y: 85.866, z: 0}
---- !u!114 &977264453
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 977264451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5f0a9cb3f50f143b3825973cb7759c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &977534400
 GameObject:
   m_ObjectHideFlags: 0
@@ -59017,7 +59004,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1081622253}
-  - component: {fileID: 1081622254}
   m_Layer: 25
   m_Name: Block_A
   m_TagString: Untagged
@@ -59082,18 +59068,6 @@ Transform:
   - {fileID: 834978629}
   m_Father: {fileID: 224837393}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &1081622254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1081622252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5f0a9cb3f50f143b3825973cb7759c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1084952391
 GameObject:
   m_ObjectHideFlags: 0
@@ -91070,7 +91044,6 @@ GameObject:
   - component: {fileID: 1983443170}
   - component: {fileID: 1983443172}
   - component: {fileID: 1983443171}
-  - component: {fileID: 1983443173}
   m_Layer: 25
   m_Name: Highway
   m_TagString: Untagged
@@ -91147,18 +91120,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1983443169}
   m_Mesh: {fileID: 4300002, guid: abb792f1ea926db498220e93caccf43e, type: 3}
---- !u!114 &1983443173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1983443169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5f0a9cb3f50f143b3825973cb7759c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1986484810
 GameObject:
   m_ObjectHideFlags: 0
@@ -93404,7 +93365,6 @@ GameObject:
   - component: {fileID: 2034330241}
   - component: {fileID: 2034330240}
   - component: {fileID: 2034330239}
-  - component: {fileID: 2034330242}
   m_Layer: 25
   m_Name: TrainBridge
   m_TagString: Untagged
@@ -93492,18 +93452,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 224837393}
   m_LocalEulerAnglesHint: {x: 0, y: 85.264, z: 0}
---- !u!114 &2034330242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034330238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf5f0a9cb3f50f143b3825973cb7759c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2035952823
 GameObject:
   m_ObjectHideFlags: 0

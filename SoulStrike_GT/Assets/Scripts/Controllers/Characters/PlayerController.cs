@@ -247,7 +247,7 @@ namespace GT
 
             _weapon.SkillWeapon(randSkill - 1);
             yield return new WaitForSeconds(cooltime);
-            _playerData.skill_cooltime = 0f;
+            _elapsedSkillCooltime = 0f;
         }
 
         public void OnHit()
