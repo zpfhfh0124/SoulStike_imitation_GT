@@ -75,6 +75,7 @@ namespace GT
         {
             _rigid = GetComponent<Rigidbody>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _navMeshAgent.stoppingDistance = _enemyData.far_distance;
             _animManager = GetComponent<EnemyAnimManager>();
             _uiFollower.SetUITarget(transform);
             _ragdoll = GetComponent<RagdollEvent>();
@@ -135,28 +136,23 @@ namespace GT
             if (_playerDist < _enemyData.pursutied_distance)
             {
                 _speed = _enemyData.fast_speed;
-                _navMeshAgent.isStopped = false;
                 _SetStateAnim(EnemyState.ATTACK);
             }
             else if (_playerDist < _enemyData.near_distance)
             {
                 _speed = _enemyData.fast_speed;
                 _SetStateAnim(EnemyState.RUN);
-                _navMeshAgent.isStopped = false;
                 _SetNavMeshPursuit();
             }
             else if (_playerDist < _enemyData.far_distance)
             {
                 _speed = _enemyData.slow_speed;
                 _SetStateAnim(EnemyState.WALK);
-                _navMeshAgent.isStopped = false;
                 _SetNavMeshPursuit();
             }
             else
             {
                 // 추적 안함
-                _navMeshAgent.isStopped = true;
-                _animManager.StopPursuit();
                 _SetStateAnim(EnemyState.IDLE);
             }
 

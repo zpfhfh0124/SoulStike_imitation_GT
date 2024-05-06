@@ -28,9 +28,9 @@ namespace GT
         [SerializeField] GameObject _objMonster;
 
         [Header("스폰 관련")]
-        [SerializeField] GameObject _objPlane;
+        [SerializeField] GameObject _spawnableArea;
+        [SerializeField] NavMeshSurface _navMesh;
         private GameObject _spawnPool;
-        NavMeshSurface _navMesh;
         Vector3 _spawnPos;
         float _spawnTime = 0;
 
@@ -40,7 +40,6 @@ namespace GT
         protected override void Awake()
         {
             base.Awake();
-            _navMesh = _objPlane.GetComponent<NavMeshSurface>();
             _spawnPool = new GameObject("SpawnningPool");
             _GetJsonSpawnData();
         }
@@ -107,27 +106,35 @@ namespace GT
         IEnumerator Spawn(float coolTime)
         {
             yield return new WaitForSeconds(coolTime);
-            _spawnTime = 0;
             ResetMonsterType();
-            GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
-            NavMeshAgent nma = monster.GetComponent<NavMeshAgent>();
 
-            // 스폰 위치
-            Vector3 randPos;
-            Vector3 randDir = Random.insideUnitSphere * Random.Range(0, _spawnData.spawn_radius);
-            randDir.y = 0;
-            randPos = _spawnPos + randDir;
-            
-            NavMeshPath path = new NavMeshPath();
-            if(nma.CalculatePath(randPos, path))
+            while (true)
             {
-                monster.transform.position = randPos;
-            }
-            else
-            {
-                monster.GetComponent<EnemyController>().UI.DestroyUI();
-                Destroy(monster);
+                // 스폰 위치 지정한 영역 내에서 랜덤하게
+                Vector3 randPos;
+                Vector3 randDir = Random.insideUnitSphere * _spawnData.spawn_radius;
+                randPos = _spawnPos + randDir;
+                randPos.y = 0f;
+
+                // 몬스터 생성
+                GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
+                NavMeshAgent nma = monster.GetComponent<NavMeshAgent>();
+
+                NavMeshPath path = new NavMeshPath();
+                if (nma.CalculatePath(randPos, path))
+                {
+                    monster.transform.position = randPos;
+                    _spawnPos = randPos;
+                    //_spawnTime = 0;
+                    break;
+                }
+                else
+                {
+                    monster.GetComponent<EnemyController>().UI.DestroyUI();
+                    Destroy(monster);
+                }
             }
         }
+
     }
 }
