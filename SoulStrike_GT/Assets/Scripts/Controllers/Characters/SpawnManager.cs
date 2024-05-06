@@ -125,7 +125,7 @@ namespace GT
                 {
                     monster.transform.position = randPos;
                     _spawnPos = randPos;
-                    //_spawnTime = 0;
+                    _spawnTime = 0;
                     break;
                 }
                 else
