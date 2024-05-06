@@ -75,7 +75,6 @@ namespace GT
         {
             _rigid = GetComponent<Rigidbody>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _navMeshAgent.stoppingDistance = _enemyData.far_distance;
             _animManager = GetComponent<EnemyAnimManager>();
             _uiFollower.SetUITarget(transform);
             _ragdoll = GetComponent<RagdollEvent>();
@@ -280,6 +279,10 @@ namespace GT
                 if (_ragdoll != null)
                 {
                     _ragdoll.Replace();
+                }
+                else
+                {
+                    Destroy(gameObject);
                 }
             }
         }

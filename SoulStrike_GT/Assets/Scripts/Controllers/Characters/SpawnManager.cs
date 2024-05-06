@@ -61,6 +61,11 @@ namespace GT
             int nearestIdx = 0;
             var monsters = _spawnPool.transform.GetComponentsInChildren<EnemyController>();
             
+            if(monsters == null || monsters.Length == 0)
+            {
+                return null;
+            }
+
             for (int i = 0; i < monsters.Length; i++)
             {
                 float dist = (basePos - monsters[i].transform.position).magnitude;
@@ -106,32 +111,28 @@ namespace GT
             yield return new WaitForSeconds(coolTime);
             ResetMonsterType();
 
-            while (true)
+            // 스폰 위치 지정한 영역 내에서 랜덤하게
+            Vector3 randPos;
+            Vector3 randDir = Random.insideUnitSphere * _spawnData.spawn_radius;
+            randPos = _spawnPos + randDir;
+            randPos.y = 0f;
+
+            // 몬스터 생성
+            GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
+            NavMeshAgent nma = monster.GetComponent<NavMeshAgent>();
+            Debug.Log($"스폰 몬스터 NavMeshAgent : {nma.pathStatus}");
+            monster.transform.position = randPos;
+
+            if (nma.CalculatePath(randPos, nma.path))
             {
-                // 스폰 위치 지정한 영역 내에서 랜덤하게
-                Vector3 randPos;
-                Vector3 randDir = Random.insideUnitSphere * _spawnData.spawn_radius;
-                randPos = _spawnPos + randDir;
-                randPos.y = 0f;
-
-                // 몬스터 생성
-                GameObject monster = GameObject.Instantiate(_objMonster, _spawnPool.transform);
-                NavMeshAgent nma = monster.GetComponent<NavMeshAgent>();
-
-                NavMeshPath path = new NavMeshPath();
-                if (nma.CalculatePath(randPos, path))
-                {
-                    monster.transform.position = randPos;
-                    _spawnPos = randPos;
-                    _spawnTime = 0;
-                    break;
-                }
-                else
-                {
-                    monster.GetComponent<EnemyController>().UI.DestroyUI();
-                    Destroy(monster);
-                }
+                _spawnPos = randPos;
             }
+            else
+            {
+                monster.GetComponent<EnemyController>().UI.DestroyUI();
+                Destroy(monster);
+            }
+            _spawnTime = 0;
         }
 
     }

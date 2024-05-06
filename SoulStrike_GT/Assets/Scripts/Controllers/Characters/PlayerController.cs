@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GT
 {
@@ -26,6 +27,7 @@ namespace GT
         public int sp;
         public int atk;
         public int def;
+        public float speed;
     }
     
     /// <summary>
@@ -36,9 +38,11 @@ namespace GT
         [Header("플레이어 정보")]
         private PlayerData _playerData = new PlayerData();
         public PlayerData PlayerData { get { return _playerData; } }
+        int _maxHP;
+        int _maxSP;
+        float _skillCooltime = 0f;
         
         [Header("Movement")]
-        private const float SPEED_BASE = 5;
         private float _hAxis;
         private float _vAxis;
         private Vector3 _moveVec;
@@ -47,62 +51,80 @@ namespace GT
         public VariableJoystick _joystick;
         UIFollow3D _uiFollower;
         [SerializeField] ObjectUI _objectUI;
-
+        [SerializeField] Button _btnAuto;
+        [SerializeField] Image _imgBtnAutoEnable;
 
         [Header("Animation")] 
         public Animator _animator;
         private PlayerState _playerState = PlayerState.IDLE;
-        private const float MOVE_SPEED_RUN_PARAM = 0.3f;
-        private const float MOVE_SPEED_WALK_PARAM = 0.05f;
-        private const string ANIM_PARAM_MOVESPEED = "MoveSpeed";
-        private const string ANIM_PARAM_ATTACK = "Attack";
+        public readonly float MOVE_SPEED_RUN_PARAM = 0.3f;
+        public readonly float MOVE_SPEED_WALK_PARAM = 0.05f;
+        public readonly string ANIM_PARAM_MOVESPEED = "MoveSpeed";
+        public readonly string ANIM_PARAM_ATTACK = "Attack";
 
         [Header("물리 요소")]
         [SerializeField] Weapon _weapon;
         [SerializeField] private GameObject _objPlayerCollider;
-        
+
+        bool _isAuto = false;
+        public bool IsAuto { get { return _isAuto; } }
+
         void Awake()
         {
             _InitAnim();
             _GetJsonPlayerData();
             _objectUI.InitHp(_playerData.hp);
             _objectUI.InitSp(_playerData.sp);
+            _maxHP = _playerData.hp;
+            _maxSP = _playerData.sp;
         }
 
         private void Start()
         {
+            _btnAuto.onClick.AddListener(OnAuto);
+
             _weapon.AddAtk(_playerData.atk);
         }
 
         void Update()
         {
-            /// PC, 모바일 조이패드 입력 
-            // 플레이어의 이동과 회전을 계산
-            _hAxis = _joystick.Horizontal;
-            _vAxis = _joystick.Vertical;
-            Vector3 moveVec = new Vector3(_hAxis, 0, _vAxis);
-            
-            // 캐릭터 회전 적용
-            if (moveVec != Vector3.zero)
+            if (!_isAuto)
             {
-                Quaternion dicQ = Quaternion.LookRotation(_moveVec);
-                transform.rotation = dicQ;
+                /// PC, 모바일 조이패드 입력 
+                // 플레이어의 이동과 회전을 계산
+                _hAxis = _joystick.Horizontal;
+                _vAxis = _joystick.Vertical;
+                Vector3 moveVec = new Vector3(_hAxis, 0, _vAxis);
+
+                // 캐릭터 회전 적용
+                if (moveVec != Vector3.zero)
+                {
+                    Quaternion dicQ = Quaternion.LookRotation(_moveVec);
+                    transform.rotation = dicQ;
+                }
+
+                // 스피드 계산 및 이동 적용
+                float distNormal = _joystick.Direction.sqrMagnitude;
+                float speed = _playerData.speed * distNormal;
+                _moveVec = moveVec.normalized;
+                transform.position += _moveVec * speed * Time.deltaTime;
+
+                // 이동 관련 애니메이션 세팅
+                SetPlayerAnimeMoveSpeed(distNormal);
             }
-            
-            // 스피드 계산 및 이동 적용
-            float distNormal = _joystick.Direction.sqrMagnitude;
-            float speed = SPEED_BASE * distNormal;
-            _moveVec = moveVec.normalized;
-            transform.position += _moveVec * speed * Time.deltaTime;
-            
-            // 이동 관련 애니메이션 세팅
-            SetPlayerAnimeMoveSpeed(distNormal);
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             // 플레이어 HP, SP 자연 회복
+            _AddHp(1);
+            _AddSp(2);
+        }
 
+        void OnAuto()
+        {
+            _isAuto = !_isAuto;
+            _imgBtnAutoEnable.gameObject.SetActive(_isAuto);
         }
 
         /// <summary>
@@ -124,7 +146,7 @@ namespace GT
         }
 
         // 조이스틱 거리를 이용해서 Run/Walk/Idle 상태의 애니메이션을 처리한다.
-        private void SetPlayerAnimeMoveSpeed(float dist)
+        public void SetPlayerAnimeMoveSpeed(float dist)
         {
             PlayerState state;
             
@@ -138,13 +160,13 @@ namespace GT
             }
             else
             {
-                state = PlayerState.IDLE;
+                state = _isAuto ? PlayerState.ATTACK : PlayerState.IDLE;
             }
             
             SetPlayerAnimState(state, dist);
         }
 
-        private void SetPlayerAnimState(PlayerState state, float speed = 0.0f)
+        public void SetPlayerAnimState(PlayerState state, float speed = 0.0f)
         {
             if (state == _playerState) return; 
             
@@ -158,18 +180,16 @@ namespace GT
                     
                     break;
                 case PlayerState.ATTACK : 
-                    
-                    _animator.SetTrigger(ANIM_PARAM_ATTACK);
-                    
-                    break;
                 case PlayerState.SKILL :
                     _animator.SetTrigger(ANIM_PARAM_ATTACK);
-                    int randSkill = UnityEngine.Random.Range(1, 3);
-                    StringBuilder skillTrigger = new StringBuilder();
-                    skillTrigger.Append("Skill");
-                    skillTrigger.Append(randSkill.ToString());
-                    _animator.SetTrigger(skillTrigger.ToString());
-                    
+                    if (_skillCooltime <= 0)
+                    {
+                        int randSkill = UnityEngine.Random.Range(1, 3);
+                        StringBuilder skillTrigger = new StringBuilder();
+                        skillTrigger.Append("Skill");
+                        skillTrigger.Append(randSkill.ToString());
+                        _animator.SetTrigger(skillTrigger.ToString());
+                    }
                     break;
                 case PlayerState.HIT :
                     
@@ -219,14 +239,22 @@ namespace GT
 
         void _AddHp(int value)
         {
+            if (value + _playerData.hp >= _maxHP) return;
+                
             _playerData.hp += value;
+            if (_playerData.hp >= _maxHP) _playerData.hp = _maxHP;
+
             _objectUI.SetCurHp(_playerData.hp);
             Debug.Log($"현재 플레이어 HP : {_playerData.hp}");
         }
 
         void _AddSp(int value)
         {
+            if (value + _playerData.sp >= _maxSP) return;
+
             _playerData.sp += value;
+            if (_playerData.sp >= _maxSP) _playerData.sp = _maxSP;
+
             _objectUI.SetCurSp(_playerData.sp);
         }
     }
