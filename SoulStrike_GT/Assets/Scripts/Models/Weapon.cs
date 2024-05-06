@@ -24,6 +24,9 @@ namespace GT
         public TrailRenderer _trailFX;
         public ParticleSystem[] _skillFXs;
 
+        Action _comboAddCallback;
+        public Action ComboAddCallback { get { return _comboAddCallback; } }
+
         private void Awake()
         {
             SetActiveColliderTrailFX(false);
@@ -42,9 +45,16 @@ namespace GT
             _weaponData.atk += value;
         }
 
-        public void UseWeapon()
+        public void UseWeapon(int skillIdx = -1)
         {
-            StartCoroutine(Swing());
+            if (skillIdx >= 0)
+            {
+                StartCoroutine(SkillWeapon(skillIdx));
+            }
+            else
+            {
+                StartCoroutine(Swing());
+            }
         }
 
         IEnumerator Swing()
@@ -58,11 +68,10 @@ namespace GT
 
         public IEnumerator SkillWeapon(int skillIdx)
         {
-            yield return new WaitForSeconds(0.1f);
             SetActiveSkillFX(skillIdx, true);
 
-            /*yield return new WaitForSeconds(5.0f);
-            SetActiveSkillFX(skillIdx, false);*/
+            yield return new WaitForSeconds(3.0f);
+            SetActiveSkillFX(skillIdx, false);
         }
 
         protected void SetActiveColliderTrailFX(bool isOn)
@@ -75,6 +84,11 @@ namespace GT
         {
             if (isOn) _skillFXs[idx].Play(true);
             else _skillFXs[idx].Stop();
+        }
+
+        public void SetComboAddCallback(Action callback)
+        {
+            _comboAddCallback = callback;
         }
     }
 }

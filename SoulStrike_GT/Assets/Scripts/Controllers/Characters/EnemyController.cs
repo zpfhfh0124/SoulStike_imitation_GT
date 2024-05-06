@@ -251,6 +251,7 @@ namespace GT
                 _SetStateAnim(EnemyState.HIT);
                 var weapon = collision.transform.GetComponent<Weapon>();
                 GetDamaged(weapon.WeaponData.atk);
+                weapon.ComboAddCallback();
                 Debug.Log($"몬스터 피격");
                 Camera.main.GetComponent<CameraShake>().ShakeCam();
             }

@@ -30,7 +30,7 @@ namespace GT
         public int def;
         public float speed;
         public float skill_cooltime;
-        public float combo;
+        public int combo;
     }
     
     /// <summary>
@@ -95,6 +95,7 @@ namespace GT
             _btnAuto.onClick.AddListener(OnAuto);
 
             _weapon.AddAtk(_playerData.atk);
+            _weapon.SetComboAddCallback(ComboCount);
         }
 
         void Update()
@@ -245,7 +246,7 @@ namespace GT
             skillTrigger.Append(randSkill.ToString());
             _animator.SetTrigger(skillTrigger.ToString());
 
-            _weapon.SkillWeapon(randSkill - 1);
+            _weapon.UseWeapon(randSkill - 1);
             yield return new WaitForSeconds(cooltime);
             _elapsedSkillCooltime = 0f;
         }
@@ -270,7 +271,7 @@ namespace GT
         public void ComboCount()
         {
             _AddCombo();
-            
+            _objectUI.SetComboText(_playerData.combo);
         }
 
         void _AddHp(int value)

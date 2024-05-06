@@ -11,6 +11,7 @@ namespace GT
         [SerializeField] Slider _hpSlider;
         [SerializeField] Slider _spSlider;
         [SerializeField] TextMeshProUGUI _damageTMP;
+        [SerializeField] TextMeshProUGUI _comboTMP;
 
         int _hpMax;
         int _curHp;
@@ -19,7 +20,7 @@ namespace GT
 
         private void Awake()
         {
-            _InitDamageTMP();
+            _InitTMP();
         }
 
         public void InitHp(int maxValue)
@@ -57,9 +58,10 @@ namespace GT
             _spSlider.value = ((float)_curSp / (float)_spMax);
         }
 
-        void _InitDamageTMP()
+        void _InitTMP()
         {
             _damageTMP.gameObject.SetActive(false);
+            _comboTMP.gameObject.SetActive(false);
         }
 
         public void SetDamageText(int damage)
@@ -67,19 +69,33 @@ namespace GT
             _damageTMP.gameObject.SetActive(true);
             _damageTMP.text = damage.ToString();
             _damageTMP.alpha = 1.0f;
-            StartCoroutine(_HideDamageTMP());
+            _HideDamageTMP();
         }
 
-        IEnumerator _HideDamageTMP()
+        void _HideDamageTMP()
         {
-            yield return new WaitForSeconds(2.0f);
-            
             while(_damageTMP.alpha > 0)
             {
-                _damageTMP.alpha -= Time.deltaTime;
+                _damageTMP.alpha -= 0.1f * Time.deltaTime;
             }
             _damageTMP.gameObject.SetActive(false);
         } 
+
+        public void SetComboText(int combo)
+        {
+            _comboTMP.gameObject.SetActive(true);
+            _comboTMP.text = string.Format($"{combo} combo");
+            _comboTMP.alpha = 1.0f;
+        }
+
+        void _HideComboTMP()
+        {
+            while (_comboTMP.alpha > 0)
+            {
+                _comboTMP.alpha -= 0.1f * Time.deltaTime;
+            }
+            _comboTMP.gameObject.SetActive(false);
+        }
 
         public void DestroyUI()
         {
