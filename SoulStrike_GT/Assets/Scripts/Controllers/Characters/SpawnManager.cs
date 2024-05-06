@@ -124,7 +124,8 @@ namespace GT
             Debug.Log($"스폰 몬스터 NavMeshAgent : {nma.pathStatus}");
             monster.transform.position = randPos;
 
-            if (nma.CalculatePath(randPos, nma.path))
+            if (nma.pathStatus != NavMeshPathStatus.PathInvalid && 
+                nma.CalculatePath(randPos, nma.path))
             {
                 _spawnPos = randPos;
             }
@@ -133,6 +134,7 @@ namespace GT
                 monster.GetComponent<EnemyController>().UI.DestroyUI();
                 Destroy(monster);
             }
+
             _spawnTime = 0;
         }
 

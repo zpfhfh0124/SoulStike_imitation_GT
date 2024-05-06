@@ -6,18 +6,18 @@ namespace GT
 {
     public class CameraPassObj : MonoBehaviour
     {
-        PlayerController _player;
+        [SerializeField] Transform _target;
 
         private void Awake()
         {
-            _player = FindObjectOfType<PlayerController>();
+
         }
 
         void LateUpdate()
         {
-            Vector3 direction = (_player.transform.position - transform.position).normalized;
+            Vector3 direction = (_target.position - transform.position).normalized;
             RaycastHit[] hits = Physics.RaycastAll(transform.position, direction, Mathf.Infinity,
-                                1 << LayerMask.NameToLayer("Prop"));
+                                1 << LayerMask.NameToLayer("Props"));
 
             for (int i = 0; i < hits.Length; i++)
             {
@@ -25,7 +25,7 @@ namespace GT
 
                 for (int j = 0; j < obj.Length; j++)
                 {
-                    obj[j]?.BecomeTransparent();
+                    obj[j].BecomeTransparent();
                 }
             }
         }

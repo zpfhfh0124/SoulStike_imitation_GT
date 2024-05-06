@@ -42,6 +42,7 @@ namespace GT
         public PlayerData PlayerData { get { return _playerData; } }
         int _maxHP;
         int _maxSP;
+        float _elapsedSkillCooltime = 0;
         
         [Header("Movement")]
         private float _hAxis;
@@ -189,7 +190,7 @@ namespace GT
                     
                     break;
                 case PlayerState.ATTACK :
-                    if (_isAuto && _playerData.skill_cooltime <= 0)
+                    if (_elapsedSkillCooltime <= 0)
                     {
                         SetPlayerAnimState(PlayerState.SKILL);
                     }
@@ -199,11 +200,10 @@ namespace GT
                     }
                     break;
                 case PlayerState.SKILL :
-                    if (_playerData.skill_cooltime <= 0)
-                    {
-                        _playerData.skill_cooltime = 10f;
-                        StartCoroutine(OnSkill(_playerData.skill_cooltime));
-                    }
+
+                    _elapsedSkillCooltime = _playerData.skill_cooltime;
+                     StartCoroutine(OnSkill(_elapsedSkillCooltime));
+                    
                     break;
                 case PlayerState.HIT :
                     
@@ -224,7 +224,7 @@ namespace GT
         {
             if(collision.transform.tag == "Enemy")
             {
-                transform.Rotate(collision.transform.forward);
+                transform.LookAt(collision.transform.forward);
                 var enemy = collision.transform.GetComponentInParent<EnemyController>();
                 GetDamaged(enemy.EnemyData.atk);
             }
