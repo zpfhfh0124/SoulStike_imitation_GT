@@ -47,11 +47,6 @@ namespace GT
             StartCoroutine(Swing());
         }
 
-        public void SkillWeapon(int skillIdx)
-        {
-            SetActiveSkillFX(skillIdx);
-        }
-
         IEnumerator Swing()
         {
             yield return new WaitForSeconds(0.1f);
@@ -61,15 +56,25 @@ namespace GT
             SetActiveColliderTrailFX(false);
         }
 
+        public IEnumerator SkillWeapon(int skillIdx)
+        {
+            yield return new WaitForSeconds(0.1f);
+            SetActiveSkillFX(skillIdx, true);
+
+            yield return new WaitForSeconds(0.5f);
+            SetActiveSkillFX(skillIdx, false);
+        }
+
         protected void SetActiveColliderTrailFX(bool isOn)
         {
             _collider.enabled = isOn;
             _trailFX.enabled = isOn;
         }
 
-        protected void SetActiveSkillFX(int idx)
+        public void SetActiveSkillFX(int idx, bool isOn)
         {
-            _skillFXs[idx].Play(true);
+            if (isOn) _skillFXs[idx].Play(true);
+            else _skillFXs[idx].Stop();
         }
     }
 }

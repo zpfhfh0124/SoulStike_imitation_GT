@@ -30,6 +30,7 @@ namespace GT
         public int def;
         public float speed;
         public float skill_cooltime;
+        public float combo;
     }
     
     /// <summary>
@@ -252,6 +253,7 @@ namespace GT
         public void OnHit()
         {
             SetPlayerAnimState(PlayerState.HIT);
+            Camera.main.GetComponent<CameraShake>().ShakeCam();
         }
 
         void GetDamaged(int damageValue)
@@ -262,6 +264,13 @@ namespace GT
             damageValue += addValue;
             Debug.Log($"플레이어 <- 몬스터 피격 최종 데미지 : {damageValue}");
             _AddHp(damageValue * -1);
+            _objectUI.SetDamageText(damageValue);
+        }
+
+        public void ComboCount()
+        {
+            _AddCombo();
+            
         }
 
         void _AddHp(int value)
@@ -283,6 +292,11 @@ namespace GT
             if (_playerData.sp >= _maxSP) _playerData.sp = _maxSP;
 
             _objectUI.SetCurSp(_playerData.sp);
+        }
+
+        void _AddCombo()
+        {
+            _playerData.combo++;
         }
 
         /// <summary>

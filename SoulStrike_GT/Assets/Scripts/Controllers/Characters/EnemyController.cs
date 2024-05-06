@@ -252,6 +252,7 @@ namespace GT
                 var weapon = collision.transform.GetComponent<Weapon>();
                 GetDamaged(weapon.WeaponData.atk);
                 Debug.Log($"몬스터 피격");
+                Camera.main.GetComponent<CameraShake>().ShakeCam();
             }
         }
 
@@ -262,6 +263,7 @@ namespace GT
             damageValue += addValue;
             Debug.Log($"플레이어 -> 몬스터 공격 최종 데미지 : {damageValue}");
             AddHp(damageValue * -1);
+            _objectUI.SetDamageText(damageValue);
         }
 
         void AddHp(int value)
