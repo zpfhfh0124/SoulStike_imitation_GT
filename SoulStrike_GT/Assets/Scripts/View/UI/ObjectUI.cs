@@ -60,8 +60,8 @@ namespace GT
 
         void _InitTMP()
         {
-            _damageTMP.gameObject.SetActive(false);
-            _comboTMP.gameObject.SetActive(false);
+            if(_damageTMP != null) _damageTMP.gameObject.SetActive(false);
+            if (_comboTMP != null) _comboTMP.gameObject.SetActive(false);
         }
 
         public void SetDamageText(int damage)
